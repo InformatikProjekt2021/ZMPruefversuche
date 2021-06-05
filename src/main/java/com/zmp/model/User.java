@@ -1,41 +1,33 @@
 package com.zmp.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Data
 @Table(name="user")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column
     private String name;
 
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column
+    private String email;
+
+    @Column
     private String password;
 
-    public String getName() {
-        return name;
-    }
+    @OneToMany(mappedBy = "userId")
+    private List<Experiment> experiments;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Id
-    public Long getId() {
-        return id;
-    }
+    private long roleId;
 }

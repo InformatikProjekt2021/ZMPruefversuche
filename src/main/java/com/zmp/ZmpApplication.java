@@ -12,10 +12,4 @@ public class ZmpApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZmpApplication.class, args);
     }
-
-    @RequestMapping("/action")
-    public String action(){
-        return "action";
-    }
-
 }

@@ -1,7 +1,7 @@
 package com.zmp.repositories;
 
-import com.zmp.model.User;
+import com.zmp.model.dto.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RoleRepository extends JpaRepository<User,Long> {
+public interface RoleRepository extends JpaRepository<Role,Long> {
 }

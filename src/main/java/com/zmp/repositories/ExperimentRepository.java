@@ -1,7 +1,7 @@
 package com.zmp.repositories;
 
-import com.zmp.model.User;
+import com.zmp.model.dto.Experiment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ExperimentRepository extends JpaRepository<User,Long> {
+public interface ExperimentRepository extends JpaRepository<Experiment,Long> {
 }

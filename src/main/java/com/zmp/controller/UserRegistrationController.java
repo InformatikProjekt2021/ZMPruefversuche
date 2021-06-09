@@ -1,6 +1,6 @@
 package com.zmp.controller;
 
-import com.zmp.model.dto.UserRegistrationDto;
+import com.zmp.model.dto.User;
 import com.zmp.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +21,8 @@ public class UserRegistrationController {
     }
 
     @ModelAttribute("user")
-    public UserRegistrationDto userRegistrationDto() {
-        return new UserRegistrationDto();
+    public User user() {
+        return new User();
     }
 
     @GetMapping
@@ -31,8 +31,8 @@ public class UserRegistrationController {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
-        userService.save(registrationDto);
+    public String registerUserAccount(@ModelAttribute("user") User user) {
+        userService.save(user);
         return "redirect:/registration?success";
     }
 }

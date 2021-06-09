@@ -24,9 +24,6 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.5.0'
     implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
-
-
-
 }
 
 test {

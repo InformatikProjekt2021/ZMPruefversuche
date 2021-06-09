@@ -1,7 +1,5 @@
 package com.zmp.model.dto;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity

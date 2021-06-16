@@ -1,4 +1,4 @@
-package com.zmp.model.dto;
+package com.zmp.model;
 
 import javax.persistence.*;
 import java.util.List;

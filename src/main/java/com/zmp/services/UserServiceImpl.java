@@ -2,7 +2,7 @@ package com.zmp.services;
 
 import java.util.*;
 
-import com.zmp.model.dto.User;
+import com.zmp.model.User;
 import com.zmp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

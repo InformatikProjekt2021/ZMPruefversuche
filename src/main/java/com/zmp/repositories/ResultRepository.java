@@ -1,6 +1,6 @@
 package com.zmp.repositories;
 
-import com.zmp.model.dto.Result;
+import com.zmp.model.Result;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ResultRepository extends JpaRepository<Result,Long> {

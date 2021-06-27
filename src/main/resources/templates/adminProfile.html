@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <!-- Benötigte Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link th:href="@{css/userProfilStyle.css}" href="../../static/css/userProfilStyle.css" rel="stylesheet" type="text/css" media="screen">
+    <title>AdminProfile</title>
+</head>
+<body>
+<section class="container-fluid bg">
+    <section class="row justify-content-center">
+        <section class="col-md-5 col-sm-5 col-xs-12">
+            <form class="form-container ">
+                <!--
+                              <div class="topbar">
+                                <img src="../boot/FHLogo.png" alt="FHLogo">
+                                <a class="link2" href="#">Userverwaltung</a>
+                                <a class="link2" href="#">Messdatenverwaltung</a>
+                                <a class="link2" href="#">Versuch</a>
+                              </div>
+                -->
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="navbar-brand" href="#">Zugprüfmaschine</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarMain">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li  class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                                <a class="nav-link" th:href="@{/management}">Versuch</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#portfolio">Messdatenverwaltung</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#kontakt">Userverwaltung</a>
+                            </li>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <h2 class="tit">AdminProfile</h2>
+
+                <div class="Info">
+                    <input id="tab-1" type="radio" name="tab" class="UserInfo" checked><label for="tab-1" class="tab">Admin Info</label>
+                    <input id="tab-2" type="radio" name="tab" class="ChangePass"><label for="tab-2" class="tab">Passwort ändern</label>
+                    <div class="UserProfile-form">
+                        <div class="UserInfo-htm">
+                            <div class="mb-3">
+                                <label for="Vorname" class="form-label">Vorname</label>
+                                <input type="text" class="form-control" id="Vorname" aria-describedby="autofocus">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Nachname" class="form-label">Nachname</label>
+                                <input type="text" class="form-control" id="Nachname" aria-describedby="autofocus">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Matrikelnr" class="form-label">Matrikelnr</label>
+                                <input type="text" class="form-control" id="matrikelnr" aria-describedby="autofocus">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Email" class="form-label">Email Addresse</label>
+                                <input type="email" class="form-control" id="Email" aria-describedby="emailHelp">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block mb-3">Speichern</button>
+                        </div>
+                        <div class="ChangePass-htm">
+                            <div class="mb-3">
+                                <label for="altesPassword" class="form-label">Altes Passwort</label>
+                                <input type="password" class="form-control" id="altesPassword">
+                            </div>
+                            <div class="mb-3">
+                                <label for="neuesPassword" class="form-label">Neues Passwort</label>
+                                <input type="password" class="form-control" id="neuesPassword">
+                            </div>
+                            <div class="mb-3">
+                                <label for="neuesPasswordWiederholen" class="form-label">Neues Passwort wiederholen</label>
+                                <input type="password" class="form-control" id="neuesPasswordWiederholen">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block mb-3">Speichern</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </section>
+</section>
+<!-- Optionales JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

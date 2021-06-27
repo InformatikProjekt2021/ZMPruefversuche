@@ -1,0 +1,55 @@
+.bg{
+    color:#6a6f8c;
+    background:#c8c8c8;
+    width: 100%;
+    height: 100vh;
+}
+.form-container{
+    background: #fff;
+    position: relative;
+    top:15vh;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px #000;
+}
+.tit{
+    color: black;
+}
+
+.UserInfo-htm,
+.ChangePass-htm{
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    position:absolute;
+    transform:rotateY(180deg);
+    backface-visibility:hidden;
+    transition:all .4s linear;
+}
+
+.UserInfo,
+.ChangePass,
+.mb-3 .check{
+    display:none;
+}
+
+.tab{
+    font-size:22px;
+    margin-right:15px;
+    padding-bottom:5px;
+    margin:0 15px 10px 0;
+    display:inline-block;
+    border-bottom:2px solid transparent;
+}
+.UserInfo:checked + .tab,
+.ChangePass:checked + .tab{
+    color:black;
+    border-color:#1161ee;
+}
+.UserProfile-form{
+    min-height:345px;
+    position:relative;
+    perspective:1000px;
+    transform-style:preserve-3d;
+}

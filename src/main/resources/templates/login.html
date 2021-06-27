@@ -1,81 +1,58 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="de">
 <head>
-  <meta charset="ISO-8859-1">
-  <title>Registration and Login App</title>
+  <!-- Benötigte Meta Tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link th:href="@{css/style.css}" href="../../static/css/style.css" rel="stylesheet" type="text/css" media="screen">
+  <title>Login</title>
 
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
+
 
 </head>
 <body>
-
-<!-- create navigation bar ( header) -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed"
-              data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-              aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span> <span
-              class="icon-bar"></span> <span class="icon-bar"></span> <span
-              class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#" th:href="@{/}">Registration and
-        Login Module</a>
-    </div>
-  </div>
-</nav>
-
-<br>
-<br>
-<div class = "container">
-  <div class = "row">
-    <div class = "col-md-6 col-md-offset-3">
-
-      <h1> User Login Page </h1>
-      <form th:action="@{/login}" method="post">
+<section class="container-fluid bg">
+  <section class="row justify-content-center">
+    <section class="col-md-4 col-sm-4 col-xs-12">
+      <form class="form-container" th:action="@{/login}" method="post">
+        <h1 class="tit">Zugprüfmaschine</h1><br>
 
         <!-- error message -->
         <div th:if="${param.error}">
-          <div class="alert alert-danger">Invalid username or
-            password.</div>
+          <div class="alert alert-danger">Invalid username or password</div>
         </div>
 
         <!-- logout message -->
         <div th:if="${param.logout}">
           <div class="alert alert-info">You have been logged out.</div>
         </div>
-
-        <div class = "form-group">
+        <div class="mb-3">
           <label for ="username"> Username </label> :
-          <input type="text" class = "form-control" id ="username" name = "username"
-                 placeholder="Enter Email ID" autofocus="autofocus">
+          <input type="text" class = "form-control" id ="username" name = "username" autofocus="autofocus">
+        </div>
+        <div class="mb-3">
+          <label for="password">Password</label>: <input type="password" id="password" name="password" class="form-control"/>
         </div>
 
-        <div class="form-group">
-          <label for="password">Password</label>: <input type="password"
-                                                         id="password" name="password" class="form-control"
-                                                         placeholder="Enter Password" />
-        </div>
+        <input type="submit" name="login-submit" id="login-submit" class="form-control btn btn-primary" value="Log In" />
 
         <div class="form-group">
-          <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-              <input type="submit" name="login-submit" id="login-submit"
-                     class="form-control btn btn-primary" value="Log In" />
-            </div>
-          </div>
-        </div>
-      </form>
-      <div class="form-group">
 						<span>New user? <a href="/" th:href="@{/registration}">Register
 								here</a></span>
-      </div>
-    </div>
-  </div>
-</div>
+        </div>
+
+
+      </form>
+    </section>
+  </section>
+</section>
+<!-- Optionales JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

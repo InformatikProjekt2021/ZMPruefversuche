@@ -9,8 +9,39 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
+    <script>
+        const baseUrl = "http://localhost:8080/api";
+        function loadUsers(){
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", baseUrl, true);
+            xmlhttp.onreadystatechange = function () {
+                if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
+                    var users = JSON.parse(xmlhttp.responseText);
+                    var tblHead = `<table class = "table">
+                                    <tr> <th>Id</th><th>Vorname</th><th>Nachname</th><th>Email</th><th>Rolle</th></tr>`;
+                    var body = "<tbody>";
+                    for(let i=0; i < users.length;i++){
+                        console.log(users[i])
+                        body += "<tr><td>" +users[i].id+" </td> <td>"+users[i].firstName+"</td>" +
+                            "<td>"+users[i].lastName+"</td><td>"+users[i].email+"</td> <td>"+users[i].role+"</td></tr>";
+                        console.log(body)
+                    }
+                    body+= "</tbody>"
+                    var tblEnd = "</table>";
+                    var tbl = tblHead + body + tblEnd;
+                    console.log(tbl)
+                    document.getElementById("user").innerHTML = tbl;
+                }
+            };
+            xmlhttp.send();
+        }
+        window.onload = function (){
+            loadUsers();
+        }
+    </script>
 </head>
 <body>
+
 <div sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -27,6 +58,15 @@
         </div>
     </nav>
 </div>
+<div>
+    <br>
+    <br>
+    <br>
+    <textarea>
+        hier tbody
+    </textarea>
+</div>
+<div id = "user"></div>
 
 
 </body>

@@ -16,8 +16,12 @@ public class UsermanagementRestController {
         this.userRepository= userRepository;
     }
 
-    @GetMapping("/api")
+    @GetMapping("/api/userlist")
     public List<User> test() {
         return userRepository.findAll();
     }
+
+    // function to edit a User
+    // function to delete a User
+    // function to show user info
 }

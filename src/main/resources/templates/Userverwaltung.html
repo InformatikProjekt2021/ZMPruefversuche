@@ -54,6 +54,35 @@
         }
       });
     });
+
+      const baseUrl = "http://localhost:8080/api";
+      function loadUsers(){
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", baseUrl, true);
+      xmlhttp.onreadystatechange = function () {
+      if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
+      var users = JSON.parse(xmlhttp.responseText);
+      var tblHead = `<table class = "table">
+       <tr> <th>Id</th><th>Vorname</th><th>Nachname</th><th>Email</th><th>Rolle</th></tr>`;
+      var body = "<tbody>";
+      for(let i=0; i < users.length;i++){
+      console.log(users[i])
+      body += "<tr><td>" +users[i].id+" </td> <td>"+users[i].firstName+"</td>" +
+      "<td>"+users[i].lastName+"</td><td>"+users[i].email+"</td> <td>"+users[i].role+"</td></tr>";
+      console.log(body)
+    }
+      body+= "</tbody>"
+      var tblEnd = "</table>";
+      var tbl = tblHead + body + tblEnd;
+      console.log(tbl)
+      document.getElementById("user").innerHTML = tbl;
+    }
+    };
+      xmlhttp.send();
+    }
+      window.onload = function (){
+      loadUsers();
+    }
   </script>
 </head>
 
@@ -102,70 +131,12 @@
       </div>
     </div>
     <table class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th>
-       <span class="custom-checkbox">
-        <input type="checkbox" id="selectAll">
-        <label for="selectAll"></label>
-       </span>
-        </th>
-        <th>Username</th>
-        <th>E-Mail</th>
-        <th>Rolle</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>
-       <span class="custom-checkbox">
-        <input type="checkbox" id="checkbox1" name="options[]" value="1">
-        <label for="checkbox1"></label>
-       </span>
-        </td>
-        <td>test</td>
-        <td>test@fra-uas.de</td>
-        <td>Role_Admin</td>
-        <td>
-          <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="fas" data-toggle="tooltip" title="Edit">&#xf4ff;</i></a>
-          <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-        </td>
-      </tr>
 
 
 
-      <tr>
-        <td>
-           <span class="custom-checkbox">
-            <input type="checkbox" id="checkbox5" name="options[]" value="1">
-            <label for="checkbox5"></label>
-           </span>
-        </td>
-        <td>test</td>
-        <td>test@fra-uas.de</td>
-        <td>Role_Admin</td>
-        <td>
-          <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="fas" data-toggle="tooltip" title="Edit">&#xf4ff;</i></a>
-          <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-        </td>
-      </tr>
-      <tr>
-        <td>
-              <span class="custom-checkbox">
-               <input type="checkbox" id="checkbox5" name="options[]" value="1">
-               <label for="checkbox5"></label>
-              </span>
-        </td>
-        <td>test</td>
-        <td>test@fra-uas.de</td>
-        <td>Role_Admin</td>
-        <td>
-          <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="fas" data-toggle="tooltip" title="Edit">&#xf4ff;</i></a>
-          <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-        </td>
-      </tr>
 
-      </tbody>
+
+
     </table>
     <div class="clearfix">
       <div class="hint-text">Showing <b>5</b> out of <b>100</b> entries</div>

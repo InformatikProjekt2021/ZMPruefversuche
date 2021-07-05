@@ -3,6 +3,8 @@ package com.zmp.api;
 import com.zmp.model.Experiment;
 import com.zmp.repositories.ExperimentRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,5 +22,9 @@ public class ExperminentRestController {
         return experimentRepository.findAll();
     }
 
-    //function to delete an experiment
+    @PostMapping("/api/experiment/new")
+    public String newExperiment(@ModelAttribute Experiment experiment){
+        experimentRepository.save(experiment);
+        return "redirect:/experiment?success";
+    }
 }

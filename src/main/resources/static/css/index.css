@@ -1,0 +1,19 @@
+.navbar {
+    background-color: #8bc1ff;
+}
+
+.navbar.brand{
+    color: white;
+    background-color: white;
+}
+.navbar.nav{
+    color: white;
+    background-color: white;
+}
+.nav.icon{
+    padding-right: 70px;
+}
+
+.table{
+
+}

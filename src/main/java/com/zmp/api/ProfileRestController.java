@@ -2,6 +2,7 @@ package com.zmp.api;
 
 import com.zmp.model.User;
 import com.zmp.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProfileRestController {
 
     UserRepository userRepository;
-    private User user;
 
     public ProfileRestController(UserRepository userRepository){
         this.userRepository= userRepository;
@@ -18,7 +18,8 @@ public class ProfileRestController {
 
     @GetMapping("/api/profile")
     public User test() {
-        return userRepository.getOne(user.getId());
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmail(email);
     }
 
     //function to get User Info

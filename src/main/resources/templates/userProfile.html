@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <!-- Meta Tags -->
     <meta charset="utf-8">
@@ -54,7 +55,7 @@
     <section class="row justify-content-center">
         <section class="col-md-5 col-sm-5 col-xs-12">
 
-            <form class="form-container">
+            <form class="form-container" >
                 <h2 class="tit">UserProfile</h2>
                 <div class="Info">
                     <input id="tab-1" type="radio" name="tab" class="UserInfo" checked><label for="tab-1" class="tab">User Info</label>
@@ -62,52 +63,33 @@
                     <div class="UserProfile-form">
                         <div class="UserInfo-htm">
                             <div class="mb-3">
-                                <label class="control-label" for="firstName"> First Name </label>
-                                <!--
-                                <input id="firstName" class="form-control" th:field="*{firstName}"
-                                       required autofocus="autofocus" />
-                                -->
-                                <span  class="form-control" sec:authentication="principal.firstName">firstName</span>
+                                <label class="control-label" > Email </label>
+                                <text id="firstName" class="form-control"
+                                       required autofocus="autofocus" sec:authentication = "principal.username"></text>
+
                             </div>
-                            <div class="mb-3">
-                                <label class="control-label" for="lastName"> Last Name </label>
-                                <!--
-                                <input id="lastName" class="form-control" th:field="*{lastName}"
-                                      required autofocus="autofocus" />
-                                -->
-                                <span class="form-control" sec:authentication="principal.lastName">lastName</span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="control-label" for="email"> Email </label>
-                                <!--
-                                <input id="email" class="form-control" th:field="*{email}" required
-                                      autofocus="autofocus" />
-                                -->
-                                <span class="form-control" sec:authentication="principal.email">Email</span>
-                            </div>
-                        </div>
                         <div class="ChangePass-htm">
+                            <!-- muss angepasst werden form mit postrequest-->
                             <div class="mb-3">
-                                <label class="control-label" for="password">Altes Password </label>
+                                <label class="control-label" >Altes Password </label>
                                 <input
-                                        id="password" class="form-control" type="password"
-                                        th:field="*{password}" required autofocus="autofocus" />
+                                        class="form-control" type="password"
+                                         required autofocus="autofocus" />
                             </div>
                             <div class="mb-3">
-                                <label class="control-label" for="password">Neues Password </label>
-                                <input
-                                        id="password" class="form-control" type="password"
-                                        th:field="*{password}" required autofocus="autofocus" />
+                                <label class="control-label" >Neues Password </label>
+
                             </div>
                             <div class="mb-3">
-                                <label class="control-label" for="password">Neues Password wiederholen </label>
+                                <label class="control-label" >Neues Password wiederholen </label>
                                 <input
-                                        id="password" class="form-control" type="password"
-                                        th:field="*{password}" required autofocus="autofocus" />
+                                         class="form-control" type="password"
+                                         required autofocus="autofocus" />
                             </div>
                             <button type="submit" class="btn btn-success btn-primary btn-block mb-3">Speichern</button>
                         </div>
                     </div>
+                </div>
                 </div>
             </form>
         </section>

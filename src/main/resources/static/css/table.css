@@ -1,0 +1,28 @@
+td {
+    border-bottom: 1px solid #ddd;
+}
+tr:hover {background-color: #8cd7f1;}
+.table{
+    position: relative;
+    left: 160px;
+    top:  110px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.navbar {
+    background-color: #afc6e8;
+}
+
+.navbar.brand{
+    color: white;
+    background-color: white;
+}
+.navbar.nav{
+    color: white;
+    background-color: white;
+}
+.nav.icon{
+    padding-right: 70px;
+}

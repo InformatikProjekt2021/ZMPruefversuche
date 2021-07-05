@@ -45,6 +45,7 @@ public class UserRegistrationController {
             role = roleRepository.getOne(2L);
         }
         user.setRole(role.getName());
+        user.setUsername(user.getFirstName()+user.getLastName());
         userService.save(user);
 
         return "redirect:/registration?success";

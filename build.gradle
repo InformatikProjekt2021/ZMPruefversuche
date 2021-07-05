@@ -28,10 +28,9 @@ dependencies {
     compileOnly group: 'javax.websocket', name: 'javax.websocket-api', version: '1.1'
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.7'
-    // https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis
-    implementation group: 'org.springframework.data', name: 'spring-data-redis', version: '2.5.2'
     // https://mvnrepository.com/artifact/org.springframework.session/spring-session
     implementation group: 'org.springframework.session', name: 'spring-session', version: '1.3.5.RELEASE'
+
 
 
 

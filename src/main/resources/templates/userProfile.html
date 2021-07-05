@@ -1,89 +1,111 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
-    <!-- Benötigte Meta Tags -->
+    <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../static/css/userProfilStyle.css">
-    <title>UserProfile</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+    <link th:href="@{css/userProfilStyle.css}" href="../../static/css/userProfilStyle.css" rel="stylesheet" type="text/css" media="screen">
+    <title>User Profile</title>
 
 </head>
-<body>
+
+<body class="bg-light">
+<!-- Navbar -->
+
+<nav class="navbar navbar-dark fixed-top bg-dark navbar-expand-sm p-0">
+    <a class="navbar-brand col-5 col-sm-3 col-md-2 mr-0" href="#"><i class="fas fa-water"></i> Zugprüfmaschine</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
+        <i class="fas fa-caret-down"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Anwendung starten</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="../boot/UserProfile.png" alt="UserProfile" class="img-profile">
+                    <span sec:authentication="principal.username">Max Mustermann</span>
+                </a>
+
+                <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/" th:href="@{/login}">Abmelden</a>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <section class="container-fluid bg">
     <section class="row justify-content-center">
         <section class="col-md-5 col-sm-5 col-xs-12">
+
             <form class="form-container">
-                <!--
-                              <div class="topbar">
-                                <img src="../boot/FHLogo.png" alt="FHLogo">
-                                <a class="link" href="#">Zurück zur Startseite</a>
-                                <ul class="SignOut">
-                                  <a href=""><span class="glyphicon glyphicon-log-in"></a>
-                                </ul>
-                              </div>
-                -->
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a class="navbar-brand" href="#">Zugprüfmaschine</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarMain">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Zurück zur Startseite</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
                 <h2 class="tit">UserProfile</h2>
-
                 <div class="Info">
                     <input id="tab-1" type="radio" name="tab" class="UserInfo" checked><label for="tab-1" class="tab">User Info</label>
                     <input id="tab-2" type="radio" name="tab" class="ChangePass"><label for="tab-2" class="tab">Passwort ändern</label>
                     <div class="UserProfile-form">
                         <div class="UserInfo-htm">
                             <div class="mb-3">
-                                <label for="Vorname" class="form-label">Vorname</label>
-                                <input type="text" class="form-control" id="Vorname" aria-describedby="autofocus">
+                                <label class="control-label" for="firstName"> First Name </label>
+                                <!--
+                                <input id="firstName" class="form-control" th:field="*{firstName}"
+                                       required autofocus="autofocus" />
+                                -->
+                                <span  class="form-control" sec:authentication="principal.firstName">firstName</span>
                             </div>
                             <div class="mb-3">
-                                <label for="Nachname" class="form-label">Nachname</label>
-                                <input type="text" class="form-control" id="Nachname" aria-describedby="autofocus">
+                                <label class="control-label" for="lastName"> Last Name </label>
+                                <!--
+                                <input id="lastName" class="form-control" th:field="*{lastName}"
+                                      required autofocus="autofocus" />
+                                -->
+                                <span class="form-control" sec:authentication="principal.lastName">lastName</span>
                             </div>
                             <div class="mb-3">
-                                <label for="Matrikelnr" class="form-label">Matrikelnr</label>
-                                <input type="text" class="form-control" id="matrikelnr" aria-describedby="autofocus">
+                                <label class="control-label" for="email"> Email </label>
+                                <!--
+                                <input id="email" class="form-control" th:field="*{email}" required
+                                      autofocus="autofocus" />
+                                -->
+                                <span class="form-control" sec:authentication="principal.email">Email</span>
                             </div>
-                            <div class="mb-3">
-                                <label for="Email" class="form-label">Email Addresse</label>
-                                <input type="email" class="form-control" id="Email" aria-describedby="emailHelp">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block mb-3">Speicher</button>
                         </div>
                         <div class="ChangePass-htm">
                             <div class="mb-3">
-                                <label for="password" class="form-label">Altes Passwort</label>
-                                <input type="password" class="form-control" id="password">
+                                <label class="control-label" for="password">Altes Password </label>
+                                <input
+                                        id="password" class="form-control" type="password"
+                                        th:field="*{password}" required autofocus="autofocus" />
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">Neues Passwort</label>
-                                <input type="password" class="form-control" id="password">
+                                <label class="control-label" for="password">Neues Password </label>
+                                <input
+                                        id="password" class="form-control" type="password"
+                                        th:field="*{password}" required autofocus="autofocus" />
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">Neues Passwort wiederholen</label>
-                                <input type="password" class="form-control" id="password">
+                                <label class="control-label" for="password">Neues Password wiederholen </label>
+                                <input
+                                        id="password" class="form-control" type="password"
+                                        th:field="*{password}" required autofocus="autofocus" />
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block mb-3">Speicher</button>
+                            <button type="submit" class="btn btn-success btn-primary btn-block mb-3">Speichern</button>
                         </div>
                     </div>
                 </div>
@@ -91,10 +113,14 @@
         </section>
     </section>
 </section>
-<!-- Optionales JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+<!-- Charts -->
+
+<!-- jQuery, Popper.js, Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>

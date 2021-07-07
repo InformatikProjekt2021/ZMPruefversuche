@@ -1,11 +1,12 @@
 package com.zmp.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name="experiment")
-public class Experiment {
+public class Experiment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -31,6 +32,25 @@ public class UserServiceImpl implements UserService{
     @Override
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updateUser(User user){
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(long id){
+        Optional<User> tmp =userRepository.findById(id);
+        if(tmp.isPresent()){
+            userRepository.deleteById(id);
+        }
+    }
+
+    @Override
+    public User editPassword(User user) {
+        passwordEncoder.encode(user.getPassword());
         return userRepository.save(user);
     }
 

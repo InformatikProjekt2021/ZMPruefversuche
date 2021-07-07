@@ -1,30 +1,32 @@
 package com.zmp.api;
 
 import com.zmp.model.Experiment;
-import com.zmp.repositories.ExperimentRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.zmp.services.ExperimentService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/experiment")
 public class ExperminentRestController {
-    ExperimentRepository experimentRepository;
 
-    public ExperminentRestController(ExperimentRepository experimentRepository){
-        this.experimentRepository= experimentRepository;
+    ExperimentService experimentService;
+
+    public ExperminentRestController(ExperimentService experimentService){
+        this.experimentService = experimentService;
     }
 
-    @GetMapping("/api/experiment")
-    public List<Experiment> test() {
-        return experimentRepository.findAll();
+    @GetMapping("/all")
+    public ResponseEntity<List<Experiment>> getAllExperiments() {
+        List<Experiment> all = experimentService.getAllExperiment();
+        return new ResponseEntity<>(all, HttpStatus.OK);
     }
 
-    @PostMapping("/api/experiment/new")
-    public String newExperiment(@ModelAttribute Experiment experiment){
-        experimentRepository.save(experiment);
-        return "redirect:/experiment?success";
+    @PostMapping("/new")
+    public  ResponseEntity<Experiment> newExperiment(@RequestBody Experiment experiment){
+        Experiment tmp = experimentService.addExperiment(experiment);
+        return new ResponseEntity<>(tmp,HttpStatus.CREATED);
     }
 }

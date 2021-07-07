@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UsermanagementRestController {
 
     UserRepository userRepository;
@@ -26,15 +26,14 @@ public class UsermanagementRestController {
         return userRepository.findAll();
     }
 
-    //diese methode funktioniert noch nicht
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping( "/delete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable("id") long id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/edit")
-    public void ediUser(@RequestBody User user){
+    public void editUser(@RequestBody User user){
         userService.updateUser(user);
     }
 }

@@ -11,7 +11,7 @@ public class Result  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "resultId")
+    @OneToMany(mappedBy = "resultId", cascade = CascadeType.ALL)
     private List<PartResult> partResultId;
 
     public long getId() {

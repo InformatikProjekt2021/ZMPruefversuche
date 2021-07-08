@@ -1,9 +1,14 @@
 package com.zmp.controller;
 
+import com.zmp.communication.Connection;
+import com.zmp.communication.ConnectionHandler;
 import com.zmp.model.Experiment;
+import com.zmp.model.PartResult;
 import com.zmp.model.User;
 import com.zmp.repositories.UserRepository;
 import com.zmp.services.ExperimentService;
+import com.zmp.services.PartResultService;
+import com.zmp.services.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,10 +26,15 @@ public class ExperimentController {
 
     ExperimentService experimentService;
     UserRepository userRepository;
+    PartResultService partResultService;
+    ResultService resultService;
 
     @Autowired
-    public ExperimentController(ExperimentService experimentService,UserRepository userRepository){
+    public ExperimentController(ExperimentService experimentService,UserRepository userRepository,
+                                PartResultService partResultService,ResultService resultService){
         super();
+        this.partResultService = partResultService;
+        this.resultService = resultService;
         this.experimentService = experimentService;
         this.userRepository = userRepository;
     }
@@ -41,6 +51,17 @@ public class ExperimentController {
 
     @PostMapping
     public String newExperiment(@ModelAttribute("experiment") Experiment experiment){
+        ConnectionHandler.setExperiment(experiment);
+        Connection tcp = ConnectionHandler.getConnection();
+        Double[] data = new Double[4];
+        data[0] = experiment.getHeight();
+        data[1] = experiment.getTestSpeed();
+        data[2] = experiment.getyAxisForce();
+        data[3] = experiment.getWidth();
+        tcp.writeStream(data);
+        PartResult partResult = tcp.readStream();
+        partResultService.save(partResult);
+
         Date date  = new Date();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = auth.getName();

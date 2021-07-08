@@ -1,6 +1,7 @@
 package com.zmp;
 
 import com.zmp.communication.Connection;
+import com.zmp.communication.ConnectionHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,6 +26,7 @@ public class ZmpApplication {
                 Socket clientSocket = listenSocket.accept();
                 System. out.println("Neue Verbindung");
                 Connection c = new Connection(clientSocket);
+                ConnectionHandler.setConnection(c);
             }
         } catch( IOException e) {System.out.println(" Listen :"+ e.getMessage());}
 

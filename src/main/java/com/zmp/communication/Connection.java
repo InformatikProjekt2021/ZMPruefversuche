@@ -1,5 +1,11 @@
 package com.zmp.communication;
 
+import com.zmp.model.PartResult;
+import com.zmp.model.Result;
+import com.zmp.repositories.ResultRepository;
+import com.zmp.services.PartResultService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -14,7 +20,56 @@ public class Connection extends Thread {
     private DataOutputStream out;
     private Socket clientSocket;
     private static List<String> messages;
-    private static final String[] DataHeaders = {"1.00","2.00","3.00","4.00"};
+
+    @Autowired
+    private PartResultService partResultService;
+    private ResultRepository resultRepository;
+
+    public void writeStream(Double[] data){
+        try{
+            for (double d : data) {
+                out.writeDouble(d);
+                System.out.println("Server writes: "+d);
+            }
+        } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
+        } catch( NullPointerException e) {System.out.println(" NullPointer:"+ e.getMessage());
+        } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
+    }
+
+    public PartResult readStream(){
+        PartResult partResult = null;
+        Result result = null;
+        try {
+            while(true) {
+                String data = in.readUTF();
+                data = data.replaceAll(",",".");
+                System.out.println(data);
+                String[] params = data.split(";");
+
+                double[] converted = new double[6];
+                for(int i = 0; i<params.length;i++){
+                    try{
+                        converted[i] = Double.parseDouble(params[i]);
+                        System.out.println(converted[i]);
+                    }catch (Exception e){
+                        System.out.println(" Parsing failed:"+ e.getMessage());
+                    }
+                }
+                System.out.println("All parsed");
+                result = new Result();
+                System.out.println("Result created");
+                partResult = new PartResult(converted[0],result,ConnectionHandler.getExperiment(),converted[4],
+                        converted[5],converted[3],converted[2],converted[1]);
+                System.out.println("Partresult created");
+                System.out.println(partResult.toString());
+
+            }
+        } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
+        } catch( NullPointerException e) {System.out.println("End of message");
+        } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
+
+        return partResult;
+    }
 
     public Connection (Socket aClientSocket) {
         try {
@@ -27,30 +82,5 @@ public class Connection extends Thread {
     }
 
     public void run(){
-        try {
-            for (String str : DataHeaders) {
-                out.writeUTF(str);
-                System.out.println("Server sends: " + str);
-            }
-        } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
-        } catch( NullPointerException e) {System.out.println(" NullPointer:"+ e.getMessage());
-        } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
-        //ExperimentData experimentData = null;
-        try {
-            while(true) {
-                String data = in.readUTF();
-                System.out.println("Server Receives: " + data);
-                messages.add(data);
-                if(messages.size()==2){
-                    //experimentData = new ExperimentData(messages.get(0), messages.get(1),messages.get(2),
-                      //      messages.get(3),messages.get(4),messages.get(5));
-                    System.out.println("Data to built diagram received: " + messages.get(0) + " " + messages.get(1));
-                }
-
-            }
-        } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
-        } catch( NullPointerException e) {System.out.println(" NullPointer:"+ e.getMessage());
-        } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
-
     }
 }

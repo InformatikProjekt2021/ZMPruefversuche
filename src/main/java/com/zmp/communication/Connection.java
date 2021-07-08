@@ -16,6 +16,7 @@ public class Connection extends Thread {
     private DataOutputStream out;
     private Socket clientSocket;
     private static List<String> messages;
+    private static String[] DataHeaders = {"1.00","2.00","3.00","4.00"};
 
     public Connection (Socket aClientSocket) {
         try {
@@ -26,7 +27,16 @@ public class Connection extends Thread {
             this.start();
         } catch( IOException e) {System. out. println(" Connection:"+ e.getMessage());}
     }
+
     public void run(){
+        try {
+            for (String str : DataHeaders) {
+                out.writeUTF(str);
+                System.out.println("Server sends: " + str);
+            }
+        } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
+        } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
+
         ExperimentData experimentData = null;
         try {
             while(true) {
@@ -36,10 +46,11 @@ public class Connection extends Thread {
                     experimentData = new ExperimentData(messages.get(0), messages.get(1),messages.get(2),
                             messages.get(3),messages.get(4),messages.get(5));
                 }
-                System.out.println("Echo: " + data);
+                System.out.println("Server Receives: " + data);
             }
         } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
         } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
+
 
 
         System.out.println("Experiment created: " + experimentData.toString());

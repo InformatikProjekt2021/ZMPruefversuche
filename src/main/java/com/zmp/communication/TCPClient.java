@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 public class TCPClient {
 
-        private static String[] DataHeaders = {"Zeit_s","Kraft_N","Traversenweg_mm","Verlängerung_mm","Position_mm","Feindehnung_mm"};
+        private static String[] DataHeaders = {"Zeit_s[]","Kraft_N[]"};
 
         private static void read (DataInputStream inputStream) throws IOException {
             try {

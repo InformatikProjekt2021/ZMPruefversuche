@@ -1,7 +1,5 @@
 package com.zmp.communication;
 
-import com.zmp.model.dto.ExperimentData;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -16,7 +14,7 @@ public class Connection extends Thread {
     private DataOutputStream out;
     private Socket clientSocket;
     private static List<String> messages;
-    private static String[] DataHeaders = {"1.00","2.00","3.00","4.00"};
+    private static final String[] DataHeaders = {"1.00","2.00","3.00","4.00"};
 
     public Connection (Socket aClientSocket) {
         try {
@@ -35,25 +33,24 @@ public class Connection extends Thread {
                 System.out.println("Server sends: " + str);
             }
         } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
+        } catch( NullPointerException e) {System.out.println(" NullPointer:"+ e.getMessage());
         } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
-
-        ExperimentData experimentData = null;
+        //ExperimentData experimentData = null;
         try {
             while(true) {
                 String data = in.readUTF();
-                messages.add(data);
-                if(messages.size()==6){
-                    experimentData = new ExperimentData(messages.get(0), messages.get(1),messages.get(2),
-                            messages.get(3),messages.get(4),messages.get(5));
-                }
                 System.out.println("Server Receives: " + data);
+                messages.add(data);
+                if(messages.size()==2){
+                    //experimentData = new ExperimentData(messages.get(0), messages.get(1),messages.get(2),
+                      //      messages.get(3),messages.get(4),messages.get(5));
+                    System.out.println("Data to built diagram received: " + messages.get(0) + " " + messages.get(1));
+                }
+
             }
         } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
+        } catch( NullPointerException e) {System.out.println(" NullPointer:"+ e.getMessage());
         } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
-
-
-
-        System.out.println("Experiment created: " + experimentData.toString());
 
     }
 }

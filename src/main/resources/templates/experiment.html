@@ -156,24 +156,24 @@
           </div>
         <div class="card mb-9" style="width: 50rem; height: 70rem;">
           <div class="card-body ">
-              <form method="post">
+              <form class="form-container" th:action="@{/experiment}" action = "#" method="post" th:object = "${experiment}">
                   <div class="mb-3">
-                      <label class="control-label" > Kraft: </label><br>
-                      <input type=number step=0.01  />
+                      <label class="control-label" for="force"> Kraft: </label><br>
+                      <input id ="force" type=number th:field = "*{yAxisForce}" step="0.01"/>
                   </div>
                   <div class="mb-3">
-                    <label class="control-label" > Geschw.: </label><br>
-                        <input type=number step=0.01 />
+                    <label class="control-label" for="speed"> Geschw.: </label><br>
+                        <input id ="speed" type=number th:field = "*{testSpeed}"step="0.01"/>
                   </div>
                   <div class="mb-3">
-                      <label class="control-label" > Höhe: </label><br>
-                        <input type=number step=0.01  />
+                      <label class="control-label" for="height" > Höhe: </label><br>
+                        <input id ="height" type=number th:field = "*{height}" step="0.01"/>
                   </div>
                   <div class="mb-3">
-                    <label class="control-label" > Breite </label><br>
-                        <input type=number step=0.01  />
+                    <label class="control-label" for="width" > Breite </label><br>
+                        <input id ="width" type=number th:field = "*{width}" step="0.01"/>
                       <div class="mb-9">
-                          <button type="reset" class="btn btn-primary btn-success btn-block">Experiment starten</button>
+                          <button type="submit" class="btn btn-primary btn-success btn-block">Experiment starten</button>
                       </div>
                   </div>
 

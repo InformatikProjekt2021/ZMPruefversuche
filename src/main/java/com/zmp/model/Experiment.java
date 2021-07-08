@@ -26,19 +26,19 @@ public class Experiment implements Serializable {
     private User userId;
 
     @Column(name = "test_speed")
-    private float testSpeed;
+    private double testSpeed;
 
     @Column
-    private float height;
+    private double height;
 
     @Column
-    private float width;
+    private double width;
 
     @Column(name = "x_axis_time")
-    private float xAxisTime;
+    private double xAxisTime;
 
     @Column(name = "y_axis_force")
-    private float yAxisForce;
+    private double yAxisForce;
 
     public long getId() {
         return id;
@@ -80,43 +80,43 @@ public class Experiment implements Serializable {
         this.userId = userId;
     }
 
-    public float getTestSpeed() {
+    public double getTestSpeed() {
         return testSpeed;
     }
 
-    public void setTestSpeed(float testSpeed) {
+    public void setTestSpeed(double testSpeed) {
         this.testSpeed = testSpeed;
     }
 
-    public float getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 
-    public float getWidth() {
+    public double getWidth() {
         return width;
     }
 
-    public void setWidth(float width) {
+    public void setWidth(double width) {
         this.width = width;
     }
 
-    public float getxAxisTime() {
+    public double getxAxisTime() {
         return xAxisTime;
     }
 
-    public void setxAxisTime(float xAxisTime) {
+    public void setxAxisTime(double xAxisTime) {
         this.xAxisTime = xAxisTime;
     }
 
-    public float getyAxisForce() {
+    public double getyAxisForce() {
         return yAxisForce;
     }
 
-    public void setyAxisForce(float yAxisForce) {
+    public void setyAxisForce(double yAxisForce) {
         this.yAxisForce = yAxisForce;
     }
 }

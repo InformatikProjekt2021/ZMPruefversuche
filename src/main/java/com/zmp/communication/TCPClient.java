@@ -11,11 +11,11 @@ public class TCPClient {
             int serverPort = 8081;
             Socket s = new Socket ("127.0.0.1", serverPort);
             DataOutputStream out = new DataOutputStream (s.getOutputStream());
+            DataInputStream in = new DataInputStream (s.getInputStream());
             for(String str : DataHeaders){
                 out.writeUTF (str);
                 System.out.println("client Writing");
             }
-
             s.close();
         }catch (UnknownHostException e){
             System.out.println(" Sock:"+ e.getMessage());

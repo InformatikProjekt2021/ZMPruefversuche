@@ -6,7 +6,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +22,7 @@ public class Connection extends Thread {
             messages = new ArrayList<>();
             this.clientSocket = aClientSocket;
             in = new DataInputStream ( clientSocket.getInputStream());
+            out = new DataOutputStream (clientSocket.getOutputStream());
             this.start();
         } catch( IOException e) {System. out. println(" Connection:"+ e.getMessage());}
     }
@@ -31,7 +31,6 @@ public class Connection extends Thread {
         try {
             while(true) {
                 String data = in.readUTF();
-                Field[] fields = ExperimentData.class.getFields();
                 messages.add(data);
                 if(messages.size()==6){
                     experimentData = new ExperimentData(messages.get(0), messages.get(1),messages.get(2),

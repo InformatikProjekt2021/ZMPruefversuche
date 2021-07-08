@@ -3,17 +3,21 @@
 }
 
 .navbar.brand{
-    color: white;
-    background-color: white;
+    color: black;
+    background-color:black;
 }
 .navbar.nav{
-    color: white;
-    background-color: white;
+    color:black;
+    background-color:black;
 }
 .nav.icon{
     padding-right: 70px;
 }
 
-.table{
-
+.nav-item .nav-link{
+    font-size: 16px;
+    margin-left: 75px;
+}
+.navbar-nav .dropdown-menu{
+    margin-left:  110px;
 }

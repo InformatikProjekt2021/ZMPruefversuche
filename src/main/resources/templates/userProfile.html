@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
     <!-- Meta Tags -->
     <meta charset="utf-8">
@@ -14,15 +14,13 @@
 
     <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
-    <link th:href="@{css/userProfilStyle.css}" href="../../static/css/userProfilStyle.css" rel="stylesheet" type="text/css" media="screen">
-    <title>User Profile</title>
-
+    <link th:href="@{css/haupt.css}" href="../../static/css/haupt.css" rel="stylesheet" type="text/css" media="screen">
+    <title>Profil</title>
 </head>
-
 <body class="bg-light">
-<!-- Navbar -->
 
-<nav class="navbar navbar-dark fixed-top bg-dark navbar-expand-sm p-0">
+<!-- Navbar -->
+<nav class="navbar navbar-dark fixed-top bg-dark navbar-expand-sm p-0" >
     <a class="navbar-brand col-5 col-sm-3 col-md-2 mr-0" href="#"><i class="fas fa-water"></i> Zugprüfmaschine</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
@@ -31,31 +29,64 @@
     <div class="collapse navbar-collapse" id="navbarMain">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="#">Anwendung starten</a>
+                <a class="nav-link" href="/experiment">Experiment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/management">Benutzerverwaltung</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/experimentmanagement">Messdatenverwaltung</a>
             </li>
         </ul>
-
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="../boot/UserProfile.png" alt="UserProfile" class="img-profile">
-                    <span sec:authentication="principal.username">Max Mustermann</span>
-                </a>
-
+                <a class="nav-link dropdown-toggle" href="/userprofile" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span th:text="${#authentication.getPrincipal().getUsername()}"></span></a>
                 <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/" th:href="@{/login}">Abmelden</a>
+                    <a class="dropdown-item" th:href="@{/logout}">Abmelden</a>
                 </div>
-
             </li>
         </ul>
     </div>
 </nav>
 
-<section class="container-fluid bg">
+<div class="vertical-center-profile">
+<div class="container" th:align="center" >
+<div class="card" style="width: 50rem; height: 40rem">
+
+        <img th:src="@{/images/userProfile.jpg}" alt="Bild" height="30%" width="30%">
+    <div class="card-body">
+        <h5 class="card-title">Profil</h5>
+    </div>
+    <div class="card-body">
+    <form class="form-container" th:action="@{/userprofile}" action = "#" method="post" th:object = "${user}">
+        <div class="mb-3">
+            <label class="control-label" > Vorname: </label><br>
+            <text id="firstName" class="form-control" th:text="${user.getFirstName()}"></text>
+        </div>
+        <div class="mb-3">
+            <label class="control-label" > Nachname: </label><br>
+            <text id="firstName" class="form-control" th:text="${user.getLastName()}"></text>
+        </div>
+        <div class="mb-3">
+            <label class="control-label" > Rolle: </label><br>
+            <text id="firstName" class="form-control" th:text="${user.getFirstName()}"></text>
+        </div>
+        <div class="mb-3">
+            <a href="#"> <button class="btn btn-primary" >Passwort Ändern</button> </a>
+        </div>
+    </form>
+
+    </div>
+</div>
+</div>
+</div>
+<!--<section class="container-fluid bg">
     <section class="row justify-content-center">
         <section class="col-md-5 col-sm-5 col-xs-12">
 
-            <form class="form-container" >
+            <form class="form-container" th:action="@{/userprofile}" action = "#" method="post" th:object = "${user}">
                 <h2 class="tit">UserProfile</h2>
                 <div class="Info">
                     <input id="tab-1" type="radio" name="tab" class="UserInfo" checked><label for="tab-1" class="tab">User Info</label>
@@ -63,39 +94,40 @@
                     <div class="UserProfile-form">
                         <div class="UserInfo-htm">
                             <div class="mb-3">
-                                <label class="control-label" > Email </label>
-                                <text id="firstName" class="form-control"
-                                       required autofocus="autofocus" sec:authentication = "principal.username"></text>
-
+                                <label class="control-label" > Vorname: </label><br>
+                                <text id="firstName" class="form-control" th:text="${user.getFirstName()}"></text>
                             </div>
+                            <div class="mb-3">
+                                <label class="control-label" > Nachname: </label><br>
+                                <text id="firstName" class="form-control" th:text="${user.getLastName()}"></text>
+                            </div>
+                            <div class="mb-3">
+                                <label class="control-label" > Rolle: </label><br>
+                                <text id="firstName" class="form-control" th:text="${user.getFirstName()}"></text>
+                            </div>
+                        </div>
                         <div class="ChangePass-htm">
-                            <!-- muss angepasst werden form mit postrequest-->
                             <div class="mb-3">
-                                <label class="control-label" >Altes Password </label>
-                                <input
-                                        class="form-control" type="password"
-                                         required autofocus="autofocus" />
+                                <label class="control-label" for="oldPw">Altes Password </label>
+                                <input id = "oldPw" class="form-control" type="password" required autofocus="autofocus" />
                             </div>
                             <div class="mb-3">
-                                <label class="control-label" >Neues Password </label>
-
+                                <label class="control-label" for="newPassword">Neues Password </label>
+                                <input id = newPassword class="form-control" type="password" required autofocus="autofocus" />
                             </div>
                             <div class="mb-3">
-                                <label class="control-label" >Neues Password wiederholen </label>
-                                <input
-                                         class="form-control" type="password"
-                                         required autofocus="autofocus" />
+                                <label class="control-label" for="password">Neues Password wiederholen </label>
+                                <input id = password class="form-control" type="password" required autofocus="autofocus" th:field = "*{password}"/>
                             </div>
                             <button type="submit" class="btn btn-success btn-primary btn-block mb-3">Speichern</button>
                         </div>
-                    </div>
                 </div>
                 </div>
             </form>
         </section>
     </section>
 </section>
-
+-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
 <!-- Charts -->

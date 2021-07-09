@@ -52,16 +52,22 @@ public class ExperimentController {
     @PostMapping
     public String newExperiment(@ModelAttribute("experiment") Experiment experiment){
         ConnectionHandler.setExperiment(experiment);
-        Connection tcp = ConnectionHandler.getConnection();
+        Connection tcp = new Connection(ConnectionHandler.getClientSocket());
+        ConnectionHandler.setConnection(tcp);
+
         Double[] data = new Double[4];
         data[0] = experiment.getHeight();
         data[1] = experiment.getTestSpeed();
         data[2] = experiment.getyAxisForce();
         data[3] = experiment.getWidth();
+
         tcp.writeStream(data);
         PartResult partResult = tcp.readStream();
-        partResultService.save(partResult);
-
+        if(partResult != null) {
+            partResultService.save(partResult);
+        }else {
+            System.out.println("no data received from client");
+        }
         Date date  = new Date();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = auth.getName();
@@ -69,7 +75,7 @@ public class ExperimentController {
         experiment.setDate(date.toString());
         experiment.setUserId(user);
         experimentService.addExperiment(experiment);
-        return "redirect:/experiment?success";
+        return "redirect:/experiment";
     }
 
 }

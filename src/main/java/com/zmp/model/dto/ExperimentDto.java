@@ -1,40 +1,58 @@
 package com.zmp.model.dto;
 
 public class ExperimentDto {
-    private String testspeed;
-    private String yAxisForce;
-    private String height;
-    private String width;
+    private double testSpeed;
+    private double yAxisForce;
+    private double height;
+    private double width;
+    private Long Id;
+    private String date;
 
-    public String getTestspeed() {
-        return testspeed;
+    public double getTestSpeed() {
+        return testSpeed;
     }
 
-    public void setTestspeed(String testspeed) {
-        this.testspeed = testspeed;
+    public void setTestSpeed(double testSpeed) {
+        this.testSpeed = testSpeed;
     }
 
-    public String getyAxisForce() {
+    public double getyAxisForce() {
         return yAxisForce;
     }
 
-    public void setyAxisForce(String yAxisForce) {
+    public void setyAxisForce(double yAxisForce) {
         this.yAxisForce = yAxisForce;
     }
 
-    public String getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 
-    public String getWidth() {
+    public double getWidth() {
         return width;
     }
 
-    public void setWidth(String width) {
+    public void setWidth(double width) {
         this.width = width;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

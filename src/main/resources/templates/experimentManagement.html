@@ -16,40 +16,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
     <link th:href="@{css/haupt.css}" href="../../static/css/haupt.css" rel="stylesheet" type="text/css" media="screen">
     <script>
-        const baseUrl = "http://localhost:8080/api/users/userlist";
-        function loadUsers(){
-            var xmlhttp = new XMLHttpRequest();
+        const baseUrl = "http://localhost:8080/api/experiment/all";
+        function loadExperiment(){
+            const xmlhttp = new XMLHttpRequest();
             xmlhttp.open("GET", baseUrl, true);
             xmlhttp.onreadystatechange = function () {
-                if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
-                    var users = JSON.parse(xmlhttp.responseText);
-                    var tblHead = `<table class = "table" style="max-width:1500px;">
-                                    <tr> <th>Id</th><th>Vorname</th><th>Nachname</th><th>Email</th><th>Rolle</th></tr>`;
-                    var body = "<tbody>";
-                    for(let i=0; i < users.length;i++){
-                        console.log(users[i])
-                        body += "<tr><td>" +users[i].id+" </td> <td>"+users[i].firstName+"</td>" +
-                            "<td>"+users[i].lastName+"</td><td>"+users[i].email+"</td> <td>"+users[i].role+"</td></tr>";
+                if(xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                    const experiments = JSON.parse(xmlhttp.responseText);
+                    const tblHead = `<table class = "table" style="max-width:1500px;">
+                                    <tr><th>Name</th> <th>Id</th><th>Kraft</th><th>Geschw.</th><th>Höhe</th><th>Breite</th></tr>`;
+                    let body = "<tbody>";
+                    for (let i = 0; i < experiments.length; i++) {
+                        console.log(experiments[i])
+                        body += "<tr><td>" + experiments[i].name + " </td><td>" + experiments[i].id + " </td> <td>" + experiments[i].yAxisForce + "</td>" +
+                            "<td>" + experiments[i].testSpeed + "</td><td>" + experiments[i].height + "</td> <td>" + experiments[i].width + "</td></tr>";
                         console.log(body)
                     }
-                    body+= "</tbody>"
-                    var tblEnd = "</table>";
-                    var tbl = tblHead + body + tblEnd;
+                    body += "</tbody>"
+                    const tblEnd = "</table>";
+                    const tbl = tblHead + body + tblEnd;
                     console.log(tbl)
-                    document.getElementById("user").innerHTML = tbl;
+                    document.getElementById("experiment").innerHTML = tbl;
                 }
             };
             xmlhttp.send();
         }
         window.onload = function (){
-            loadUsers();
+            loadExperiment();
         }
     </script>
-    <title>Benutzerverwaltung</title>
+    <title>Messdatenverwaltung</title>
+
 
 </head>
 <body class="bg-light">
-
 <nav class="navbar navbar-dark fixed-top bg-dark navbar-expand-sm p-0">
     <a class="navbar-brand col-5 col-sm-3 col-md-2 mr-0" href="#"><i class="fas fa-water"></i> Zugprüfmaschine</a>
 
@@ -62,12 +62,18 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/experiment}">Experiment</a>
+                <a class="nav-link" href="/management">Benutzerverwaltung</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/experimentmanagement}">Messdatenverwaltung</a>
             </li>
         </ul>
+        <!--
+                        <form class="form-inline mr-auto">
+                            <input class="form-control form-control-dark" type="text" placeholder="Suche...">
+                        </form>
+        -->
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="/userprofile" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -81,7 +87,7 @@
 </nav>
 <div class="vertical-center">
     <div class="container" th:align="center">
-        <div id = "user"></div>
+        <div id = "experiment"></div>
     </div>
 </div>
 

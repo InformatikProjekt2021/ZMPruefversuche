@@ -1,6 +1,5 @@
 package com.zmp;
 
-import com.zmp.communication.Connection;
 import com.zmp.communication.ConnectionHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,9 +23,8 @@ public class ZmpApplication {
             ServerSocket listenSocket = new ServerSocket (serverPort);
             while(true) {
                 Socket clientSocket = listenSocket.accept();
+                ConnectionHandler.setClientSocket(clientSocket);
                 System. out.println("Neue Verbindung");
-                Connection c = new Connection(clientSocket);
-                ConnectionHandler.setConnection(c);
             }
         } catch( IOException e) {System.out.println(" Listen :"+ e.getMessage());}
 

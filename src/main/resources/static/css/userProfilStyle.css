@@ -1,3 +1,11 @@
+
+.vertical-center-profile {
+    min-height: 100%;
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+}
+
 .navbar-brand {
     padding-top: .75rem;
     padding-bottom: .75rem;

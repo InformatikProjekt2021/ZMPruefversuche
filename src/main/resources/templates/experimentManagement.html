@@ -8,7 +8,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
@@ -23,19 +24,18 @@
             xmlhttp.onreadystatechange = function () {
                 if(xmlhttp.readyState === 4 && xmlhttp.status === 200) {
                     const experiments = JSON.parse(xmlhttp.responseText);
-                    const tblHead = `<table class = "table" style="max-width:1500px;">
-                                    <tr><th>Name</th> <th>Id</th><th>Kraft</th><th>Geschw.</th><th>Höhe</th><th>Breite</th></tr>`;
+                    const tblHead = `<table class = "w3-table-all w3-hoverable" >
+                                    <tr><th>Name</th> <th>Id</th><th>Kraft</th><th>Geschw.</th><th>Höhe</th><th>Breite</th><th>Löschen</th></tr>`;
                     let body = "<tbody>";
                     for (let i = 0; i < experiments.length; i++) {
                         console.log(experiments[i])
                         body += "<tr><td>" + experiments[i].name + " </td><td>" + experiments[i].id + " </td> <td>" + experiments[i].yAxisForce + "</td>" +
-                            "<td>" + experiments[i].testSpeed + "</td><td>" + experiments[i].height + "</td> <td>" + experiments[i].width + "</td></tr>";
+                            "<td>" + experiments[i].testSpeed + "</td><td>" + experiments[i].height + "</td> <td>" + experiments[i].width + "</td><td>"+`<input type="button" class="btn btn-danger" value="Delete" height='10px'>`+"</td></tr>";
                         console.log(body)
                     }
                     body += "</tbody>"
                     const tblEnd = "</table>";
                     const tbl = tblHead + body + tblEnd;
-                    console.log(tbl)
                     document.getElementById("experiment").innerHTML = tbl;
                 }
             };
@@ -44,6 +44,10 @@
         window.onload = function (){
             loadExperiment();
         }
+    </script>
+    <script>
+
+
     </script>
     <title>Messdatenverwaltung</title>
 
@@ -62,22 +66,17 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" th:href="@{/experiment}">Experiment</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/management">Benutzerverwaltung</a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/experimentmanagement}">Messdatenverwaltung</a>
-            </li>
         </ul>
-        <!--
-                        <form class="form-inline mr-auto">
-                            <input class="form-control form-control-dark" type="text" placeholder="Suche...">
-                        </form>
-        -->
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/userprofile" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                    <span th:text="${#authentication.getPrincipal().getUsername()}"></span></a>
+                <a class="nav-link dropdown-toggle" href="/userprofile" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    <span sec:authentication="principal.username" ></span></a>
                 <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/logout">Abmelden</a>
                 </div>
@@ -85,9 +84,11 @@
         </ul>
     </div>
 </nav>
-<div class="vertical-center">
+<div class="vertical-center" >
     <div class="container" th:align="center">
-        <div id = "experiment"></div>
+        <div id = "experiment">
+
+        </div>
     </div>
 </div>
 

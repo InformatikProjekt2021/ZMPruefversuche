@@ -15,6 +15,8 @@
     <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
     <link th:href="@{css/haupt.css}" href="../../static/css/haupt.css" rel="stylesheet" type="text/css" media="screen">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <script>
         const baseUrl = "http://localhost:8080/api/users/userlist";
         function loadUsers(){
@@ -23,19 +25,23 @@
             xmlhttp.onreadystatechange = function () {
                 if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
                     var users = JSON.parse(xmlhttp.responseText);
-                    var tblHead = `<table class = "table" style="max-width:1500px;">
-                                    <tr> <th>Id</th><th>Vorname</th><th>Nachname</th><th>Email</th><th>Rolle</th></tr>`;
+                    var tblHead = `<table class = "w3-table-all w3-hoverable"">
+                                    <tr> <th>Id</th><th>Vorname</th><th>Nachname</th><th>Email</th><th>Rolle</th><th>Anlegen</th></tr>`;
                     var body = "<tbody>";
                     for(let i=0; i < users.length;i++){
                         console.log(users[i])
                         body += "<tr><td>" +users[i].id+" </td> <td>"+users[i].firstName+"</td>" +
-                            "<td>"+users[i].lastName+"</td><td>"+users[i].email+"</td> <td>"+users[i].role+"</td></tr>";
+                            "<td>"+users[i].lastName+"</td><td>"+users[i].email+"</td> <td>"+users[i].role+"</td>"+
+                                "<td>"+`<input type="button" class="btn btn-danger" value="Delete" style=" padding-right: 5px">`+
+                            `<input class="btn btn-success" value="Hinzüfugen" >`+"</td></tr>";
                         console.log(body)
                     }
+                    `<a href="#" class="btn btn-success" data-toggle="modal">
+                        <i class=" fab">&#xf4e7;</i> <span>User hinzufügen</span></a>`
+
                     body+= "</tbody>"
                     var tblEnd = "</table>";
                     var tbl = tblHead + body + tblEnd;
-                    console.log(tbl)
                     document.getElementById("user").innerHTML = tbl;
                 }
             };

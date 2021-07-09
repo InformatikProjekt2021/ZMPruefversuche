@@ -16,7 +16,6 @@ public class TCPClient {
             try {
                 while (true) {
                     double data = inputStream.readDouble();
-                    System.out.println("inputStream: "+data);
                     if(i == 3){
                         break;
                     }

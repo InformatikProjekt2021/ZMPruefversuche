@@ -1,6 +1,6 @@
 package com.zmp.model.dto;
 
-public class ExperimentData {
+public class PartResultData {
     private String Zeit_s;
     private String Kraft_N;
     private String Traversenweg_mm;
@@ -10,7 +10,7 @@ public class ExperimentData {
 
     @Override
     public String toString() {
-        return "ExperimentData{" +
+        return "PartResultData{" +
                 "Zeit_s='" + Zeit_s + '\'' +
                 ", Kraft_N='" + Kraft_N + '\'' +
                 ", Traversenweg_mm='" + Traversenweg_mm + '\'' +
@@ -20,7 +20,7 @@ public class ExperimentData {
                 '}';
     }
 
-    public ExperimentData(String zeit_s, String kraft_N, String traversenweg_mm, String verlaengerung_mm,
+    public PartResultData(String zeit_s, String kraft_N, String traversenweg_mm, String verlaengerung_mm,
                           String position_mm, String feindehnung_mm) {
         Zeit_s = zeit_s;
         Kraft_N = kraft_N;

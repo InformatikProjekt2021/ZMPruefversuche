@@ -51,31 +51,36 @@ public class ExperimentController {
 
     @PostMapping
     public String newExperiment(@ModelAttribute("experiment") Experiment experiment){
-        ConnectionHandler.setExperiment(experiment);
-        Connection tcp = new Connection(ConnectionHandler.getClientSocket());
-        ConnectionHandler.setConnection(tcp);
 
-        Double[] data = new Double[4];
-        data[0] = experiment.getHeight();
-        data[1] = experiment.getTestSpeed();
-        data[2] = experiment.getyAxisForce();
-        data[3] = experiment.getWidth();
+        if(ConnectionHandler.getClientSocket() != null){
+            ConnectionHandler.setExperiment(experiment);
+            Connection tcp = new Connection(ConnectionHandler.getClientSocket());
+            ConnectionHandler.setConnection(tcp);
+            Double[] data = new Double[4];
+            data[0] = experiment.getHeight();
+            data[1] = experiment.getTestSpeed();
+            data[2] = experiment.getyAxisForce();
+            data[3] = experiment.getWidth();
 
-        tcp.writeStream(data);
-        PartResult partResult = tcp.readStream();
-        if(partResult != null) {
-            partResultService.save(partResult);
-        }else {
-            System.out.println("no data received from client");
+            tcp.writeStream(data);
+            PartResult partResult = tcp.readStream();
+
+            if(partResult != null) {
+                 partResultService.save(partResult);
+                 Date date  = new Date();
+                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                 String currentPrincipalName = auth.getName();
+                 User user = userRepository.findByEmail(currentPrincipalName);
+                 experiment.setDate(date.toString());
+                 experiment.setUserId(user);
+                 experimentService.addExperiment(experiment);
+            }else {
+            System.out.println("client doesnt respond");
+            }
+        }else{
+            return "redirect:/experiment?error";
         }
-        Date date  = new Date();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = auth.getName();
-        User user = userRepository.findByEmail(currentPrincipalName);
-        experiment.setDate(date.toString());
-        experiment.setUserId(user);
-        experimentService.addExperiment(experiment);
-        return "redirect:/experiment";
+        return "redirect:/experiment?success";
     }
 
 }

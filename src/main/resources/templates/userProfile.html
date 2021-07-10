@@ -15,6 +15,7 @@
     <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
     <link th:href="@{css/haupt.css}" href="../../static/css/haupt.css" rel="stylesheet" type="text/css" media="screen">
+    <link th:href="@{css/form.css}" rel="stylesheet" type="text/css" media="screen">
     <title>Profil</title>
 </head>
 <body class="bg-light">
@@ -41,7 +42,7 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/userprofile" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" >
                     <span sec:authentication="principal.username"></span></a>
                 <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" th:href="@{/logout}">Abmelden</a>
@@ -53,28 +54,34 @@
 
 <div class="vertical-center-profile">
 <div class="container" th:align="center" >
-<div class="card" style="width: 50rem; height: 40rem">
+<div class="card" style="width: 50rem; height: 90%">
 
-        <img th:src="@{/images/userProfile.jpg}" alt="Bild" height="30%" width="30%">
+        <img th:src="@{/images/userProfile.jpg}" alt="Bild" height="15%" width="20%">
     <div class="card-body">
         <h5 class="card-title">Profil</h5>
     </div>
     <div class="card-body">
-    <form class="form-container" th:action="@{/userprofile}" action = "#" method="post" th:object = "${user}">
+    <form class="form-container" th:action="@{/userprofile}" method="post" th:object = "${dto}">
         <div class="mb-3">
             <label class="control-label" > Vorname: </label><br>
-            <text id="firstName" class="form-control" th:text="${user.getFirstName()}"></text>
+            <text id="firstName" class="form-control" th:text="${dto.getFirstName()}"></text>
         </div>
         <div class="mb-3">
             <label class="control-label" > Nachname: </label><br>
-            <text id="firstName" class="form-control" th:text="${user.getLastName()}"></text>
+            <text id="firstName" class="form-control" th:text="${dto.getLastName()}"></text>
         </div>
         <div class="mb-3">
-            <label class="control-label" > Rolle: </label><br>
-            <text id="firstName" class="form-control" th:text="${user.getFirstName()}"></text>
+            <label class="control-label"> Rolle: </label><br>
+            <text id="role" class="form-control" th:text="${dto.getRole()}"></text>
         </div>
         <div class="mb-3">
-            <a href="#"> <button class="btn btn-primary" >Passwort Ändern</button> </a>
+            <label class="control-label" > Passwort: </label><br>
+            <input id ="oldPw" class="form-control" type="password" required autofocus="autofocus" th:field ="*{oldPw}"/><br>
+            <label class="control-label"> Neues Passwort: </label><br>
+            <input id ="newPw" class="form-control" type="password" required autofocus="autofocus" th:field ="*{newPw}"/><br>
+            <div class="mb-3">
+               <a href="/userprofile"><button class="btn btn-primary" type="submit">Passwort Ändern</button></a>
+            </div>
         </div>
     </form>
 

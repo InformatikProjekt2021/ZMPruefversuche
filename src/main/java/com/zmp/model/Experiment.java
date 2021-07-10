@@ -21,7 +21,7 @@ public class Experiment implements Serializable {
     @Column
     private String date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User userId;
 

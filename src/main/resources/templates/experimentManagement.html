@@ -28,7 +28,7 @@
                                     <tr><th>Name</th> <th>Id</th><th>Kraft</th><th>Geschw.</th><th>Höhe</th><th>Breite</th><th>Löschen</th></tr>`;
                     let body = "<tbody>";
                     for (let i = 0; i < experiments.length; i++) {
-
+                        console.log(experiments[i])
                         body += "<tr><td>" + experiments[i].name + " </td><td>" + experiments[i].id + " </td> <td>" + experiments[i].yAxisForce + "</td>" +
                             "<td>" + experiments[i].testSpeed + "</td><td>" + experiments[i].height + "</td> <td>" + experiments[i].width + "</td><td>"+`<a href="/experimentmanagement/delete/${experiments[i].id}"><input class="btn btn-danger" value="Löschen" ></a>`+"</td></tr>";
 

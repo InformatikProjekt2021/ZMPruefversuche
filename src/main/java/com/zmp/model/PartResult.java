@@ -14,11 +14,11 @@ public class PartResult implements Serializable {
     @Column
     private double time;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     @JoinColumn(name = "result_id")
     private Result resultId;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "experiment_id")
     private Experiment experimentId;
 

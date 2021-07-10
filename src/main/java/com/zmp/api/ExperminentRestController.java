@@ -34,9 +34,8 @@ public class ExperminentRestController {
 
         for(Experiment experiment: all){
             ExperimentDto dto = new ExperimentDto();
-            User user = experiment.getUserId();
             dto.setDate(experiment.getDate());
-            dto.setId(user.getId());
+            dto.setId(experiment.getId());
             dto.setTestSpeed(experiment.getTestSpeed());
             dto.setHeight(experiment.getHeight());
             dto.setWidth(experiment.getWidth());

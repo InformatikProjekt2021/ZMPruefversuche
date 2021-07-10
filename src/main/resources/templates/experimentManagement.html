@@ -30,7 +30,7 @@
                     for (let i = 0; i < experiments.length; i++) {
 
                         body += "<tr><td>" + experiments[i].name + " </td><td>" + experiments[i].id + " </td> <td>" + experiments[i].yAxisForce + "</td>" +
-                            "<td>" + experiments[i].testSpeed + "</td><td>" + experiments[i].height + "</td> <td>" + experiments[i].width + "</td><td>"+`<input type="button" class="btn btn-danger" value="Delete" height='10px'>`+"</td></tr>";
+                            "<td>" + experiments[i].testSpeed + "</td><td>" + experiments[i].height + "</td> <td>" + experiments[i].width + "</td><td>"+`<a href="/experimentmanagement/delete/${experiments[i].id}"><input class="btn btn-danger" value="Löschen" ></a>`+"</td></tr>";
 
                     }
                     body += "</tbody>"

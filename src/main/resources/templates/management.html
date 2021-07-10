@@ -26,19 +26,16 @@
                 if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
                     var users = JSON.parse(xmlhttp.responseText);
                     var tblHead = `<table class = "w3-table-all w3-hoverable"">
-                                    <tr> <th>Id</th><th>Vorname</th><th>Nachname</th><th>Email</th><th>Rolle</th><th>Anlegen</th></tr>`;
+                                    <tr> <th>Id</th><th>Vorname</th><th>Nachname</th><th>Email</th><th>Rolle</th><th>Löschen</th></tr>`;
                     var body = "<tbody>";
-                    for(let i=0; i < users.length;i++){
-                        console.log(users[i])
+                    for(let i=1; i < users.length;i++){
+
                         body += "<tr><td>" +users[i].id+" </td> <td>"+users[i].firstName+"</td>" +
                             "<td>"+users[i].lastName+"</td><td>"+users[i].email+"</td> <td>"+users[i].role+"</td>"+
-                                "<td>"+`<input type="button" class="btn btn-danger" value="Delete" style=" padding-right: 5px">`+
-                            `<input class="btn btn-success" value="Hinzüfugen" >`+"</td></tr>";
-                        console.log(body)
-                    }
-                    `<a href="#" class="btn btn-success" data-toggle="modal">
-                        <i class=" fab">&#xf4e7;</i> <span>User hinzufügen</span></a>`
+                                "<td>"+`<a href="/management/delete/${users[i].id}"><input class="btn btn-danger" value="Löschen" ></a>`+
+                                "</td></tr>";
 
+                    }
                     body+= "</tbody>"
                     var tblEnd = "</table>";
                     var tbl = tblHead + body + tblEnd;
@@ -85,6 +82,13 @@
         </ul>
     </div>
 </nav>
+<div class="vertical-center">
+    <div class="container" th:align="center">
+        <a href='addUser'>
+            <input class="btn btn-success" value="Benutzer Hinzüfugen" >
+        </a>
+    </div>
+</div>
 <div class="vertical-center">
     <div class="container" th:align="center">
         <div id = "user"></div>

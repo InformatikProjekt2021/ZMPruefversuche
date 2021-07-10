@@ -28,6 +28,7 @@ public class UsermanagementRestController {
 
     @DeleteMapping( "/delete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable("id") long id){
+        System.out.println("deleting User");
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

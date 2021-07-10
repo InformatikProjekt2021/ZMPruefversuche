@@ -15,7 +15,7 @@ public class Experiment implements Serializable {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "experimentId", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "experimentId", cascade = CascadeType.MERGE, orphanRemoval=true)
     private List<PartResult> partResult;
 
     @Column

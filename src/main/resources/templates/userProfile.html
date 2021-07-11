@@ -40,46 +40,49 @@
                 <a class="nav-link" href="/experimentmanagement">Messdatenverwaltung</a>
             </li>
         </ul>
-        <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" >
-                    <span sec:authentication="principal.username"></span></a>
-                <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" th:href="@{/logout}">Abmelden</a>
-                </div>
-            </li>
-        </ul>
+        <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Optionen
+            <span class="caret"></span></button>
+             <ul class="dropdown-menu">
+                <li class ="divider"><a href="/logout">Abmelden</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 
 <div class="vertical-center-profile">
 <div class="container" th:align="center" >
 <div class="card" style="width: 50rem; height: 90%">
-
-        <img th:src="@{/images/userProfile.jpg}" alt="Bild" height="15%" width="20%">
-    <div class="card-body">
-        <h5 class="card-title">Profil</h5>
+    <div class = "card-title">
+         <div class="colFirst">
+             <h2 class="card-title" style="padding-top: 3px">Profil</h2>
+             <img th:src="@{/images/userProfile.jpg}" alt="Bild" height="15%" width="20%">
+         </div>
+        <div class="colSecond">
+            <h3 sec:authentication="principal.username"></h3>
+        </div>
     </div>
+
     <div class="card-body">
     <form class="form-container" th:action="@{/userprofile}" method="post" th:object = "${dto}">
         <div class="mb-3">
-            <label class="control-label" > Vorname: </label><br>
-            <text id="firstName" class="form-control" th:text="${dto.getFirstName()}"></text>
+            <b> <label class="control-label" > Vorname: </label></b><br>
+            <b><text id="firstName" class="form-control" th:text="${dto.getFirstName()}"></text></b>
         </div>
         <div class="mb-3">
-            <label class="control-label" > Nachname: </label><br>
-            <text id="firstName" class="form-control" th:text="${dto.getLastName()}"></text>
+            <b> <label class="control-label" > Nachname: </label></b><br>
+                <b> <text id="firstName" class="form-control" th:text="${dto.getLastName()}"></text></b>
         </div>
         <div class="mb-3">
-            <label class="control-label"> Rolle: </label><br>
-            <text id="role" class="form-control" th:text="${dto.getRole()}"></text>
+            <b>  <label class="control-label"> Rolle: </label></b><br>
+                <b>  <text id="role" class="form-control" th:text="${dto.getRole()}"></text></b>
         </div>
         <div class="mb-3">
-            <label class="control-label" > Passwort: </label><br>
-            <input id ="oldPw" class="form-control" type="password" required autofocus="autofocus" th:field ="*{oldPw}"/><br>
-            <label class="control-label"> Neues Passwort: </label><br>
-            <input id ="newPw" class="form-control" type="password" required autofocus="autofocus" th:field ="*{newPw}"/><br>
-            <div class="mb-3">
+                <b><label class="control-label" > Passwort: </label></b><br>
+                    <input id ="oldPw" class="form-control" type="password" required autofocus="autofocus" th:field ="*{oldPw}"/><br>
+                    <b><label class="control-label"> Neues Passwort: </label></b><br>
+                <input id ="newPw" class="form-control" type="password" required autofocus="autofocus" th:field ="*{newPw}"/><br>
+             <div class="mb-3">
                <a href="/userprofile"><button class="btn btn-primary" type="submit">Passwort Ändern</button></a>
             </div>
         </div>

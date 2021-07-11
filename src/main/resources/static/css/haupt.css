@@ -113,9 +113,6 @@ span.kpi-text{
     font-size: 16px;
     margin-left: 75px;
 }
-.navbar-nav .dropdown-menu{
-    margin-left:  110px;
-}
 
 .vertical-center {
     min-height: 100%;
@@ -124,10 +121,18 @@ span.kpi-text{
     align-items: center;
 }
 
-
 .vertical-center-profile{
     min-height: 100%;
     margin-top: 10%;
+    display: flex;
+    align-items: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+.li{
     display: flex;
     align-items: center;
 }

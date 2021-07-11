@@ -6,15 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
-    <!-- Chart.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
-    <link th:href="@{css/haupt.css}" href="../../static/css/haupt.css" rel="stylesheet" type="text/css" media="screen">
+    <link th:href="@{css/haupt.css}" rel="stylesheet" type="text/css" media="screen">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <script>
@@ -71,15 +71,14 @@
                 <a class="nav-link" th:href="@{/experimentmanagement}">Messdatenverwaltung</a>
             </li>
         </ul>
-        <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"  id="navbarDropdown" th:href="@{/userprofile}" role="button" data-toggle="dropdown"
-                   sec:authentication="principal.username"></a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/logout">Abmelden</a>
-                </div>
-            </li>
-        </ul>
+        <div class="dropdown" style="padding-right: 5px">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Optionen
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li class ="divider"><a href="/userprofile">Profil</a></li>
+                <li class ="divider"><a href="/logout">Abmelden</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 <div class="vertical-center">

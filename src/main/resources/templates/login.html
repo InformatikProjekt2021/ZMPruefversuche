@@ -22,29 +22,27 @@
 
         <!-- error message -->
         <div th:if="${param.error}">
-          <div class="alert alert-danger">Invalid username or password</div>
+          <div class="alert alert-danger">Ungültigee Email oder Passwort</div>
         </div>
 
         <!-- logout message -->
         <div th:if="${param.logout}">
-          <div class="alert alert-info">You have been logged out.</div>
+          <div class="alert alert-info">Sie wurden abgemeldet</div>
         </div>
         <div class="mb-3">
-          <label for ="username"> Username </label> :
+          <label for ="username"> Email </label> :
           <input type="text" class = "form-control" id ="username" name = "username" autofocus="autofocus">
         </div>
         <div class="mb-3">
-          <label for="password">Password</label>: <input type="password" id="password" name="password" class="form-control"/>
+          <label for="password">Passwort</label>:
+          <input type="password" id="password" name="password" class="form-control"/>
         </div>
 
         <input type="submit" name="login-submit" id="login-submit" class="form-control btn btn-primary" value="Log In" />
 
         <div class="form-group">
-						<span>New user? <a href="/" th:href="@{/registration}">Register
-								here</a></span>
+          <span>Neuer Benutzer?<a href="/" th:href="@{/registration}">Hier Registrieren</a></span>
         </div>
-
-
       </form>
     </section>
   </section>

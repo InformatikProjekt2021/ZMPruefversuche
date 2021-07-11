@@ -30,9 +30,12 @@
     <div class="collapse navbar-collapse" id="navbarMain">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="/experiment">Experiment</a>
+                <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/experiment">Experiment</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link" href="/management">Benutzerverwaltung</a>
             </li>
 
@@ -50,7 +53,7 @@
     </div>
 </nav>
 
-<div class="vertical-center-profile">
+<div class="vertical-center-profile" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
 <div class="container" th:align="center" >
 <div class="card" style="width: 50rem; height: 90%">
     <div class = "card-title">

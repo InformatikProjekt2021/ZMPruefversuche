@@ -81,16 +81,18 @@
         </div>
     </div>
 </nav>
-<div class="vertical-center">
+
+<div class="vertical-center" sec:authorize="hasRole('ROLE_ADMIN')">
     <div class="container" th:align="center">
         <a href='addUser'>
             <input class="btn btn-success" value="Benutzer Hinzüfugen" >
         </a>
+        <div id = "user"></div>
     </div>
 </div>
-<div class="vertical-center">
+<div class="vertical-center" sec:authorize="hasRole('ROLE_USER')">
     <div class="container" th:align="center">
-        <div id = "user"></div>
+        <h1>Sie verfügen nicht über die benötigte Berechtigung</h1>
     </div>
 </div>
 

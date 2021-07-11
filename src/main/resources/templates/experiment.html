@@ -32,7 +32,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/">Home</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
         <a class="nav-link" href="/management">Benutzerverwaltung</a>
       </li>
 
@@ -58,7 +58,7 @@
         <div class="container" th:align="center" >
         <div class="card" style="width: 50rem; height: 100%">
             <div class="card-title">
-                <h2>Experiment erstellen</h2>
+                <h2 style="padding-top: 3px">Experiment erstellen</h2>
             <div th:if="${param.success}">
                 <div class="alert alert-info">experiment erstellt!</div>
             </div>
@@ -67,26 +67,26 @@
                 </div>
             </div>
           <div class="card-body ">
-              <form class="form-container" th:action="@{/experiment}" action = "#" method="post" th:object = "${experiment}">
+              <form class="form-container" th:action="@{/experiment}" action = "#" method="post" th:object = "${experiment}" autocomplete="off">
                   <div class="mb-3">
                       <label class="control-label" for="name"> Name: </label><br>
                       <input id ="name" type="text" th:field = "*{name}" />
                   </div>
                   <div class="mb-3">
                       <label class="control-label" for="force"> Kraft: </label><br>
-                      <input id ="force" type=number th:field = "*{yAxisForce}" step="0.01"/>
+                      <input id ="force" type=number th:field = "*{yAxisForce}" step="0.01" placeholder="0.0"/>
                   </div>
                   <div class="mb-3">
                     <label class="control-label" for="speed"> Geschw.: </label><br>
-                        <input id ="speed" type=number th:field = "*{testSpeed}"step="0.01"/>
+                        <input id ="speed" type=number th:field = "*{testSpeed}" step="0.01" placeholder="0.0"/>
                   </div>
                   <div class="mb-3">
                       <label class="control-label" for="height" > Höhe: </label><br>
-                        <input id ="height" type=number th:field = "*{height}" step="0.01"/>
+                        <input id ="height" type=number th:field = "*{height}" step="0.01" placeholder="0.0"/>
                   </div>
                   <div class="mb-3">
                     <label class="control-label" for="width" > Breite </label><br>
-                        <input id ="width" type=number th:field = "*{width}" step="0.01"/>
+                        <input id ="width" type=number th:field = "*{width}" step="0.01" placeholder="0.0"/>
                   </div>
                   <br>
                   <br>
@@ -95,6 +95,8 @@
                       <br>
                       <button type="submit" class="btn btn-danger btn-block">Stop</button>
                   </div>
+                  <br>
+                  <br>
               </form>
           </div>
         </div>

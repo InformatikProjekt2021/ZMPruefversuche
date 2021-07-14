@@ -32,7 +32,7 @@ public class userProfileController {
         UserFormDto dto = new UserFormDto();
         dto = dto.setFormDto(user);
         model.addAttribute("dto", dto);
-        return "userProfile";
+        return "Profile";
     }
 
     @PostMapping

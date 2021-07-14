@@ -15,14 +15,14 @@
     <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
     <link th:href="@{css/haupt.css}" href="../../static/css/haupt.css" rel="stylesheet" type="text/css" media="screen">
-    <link th:href="@{css/form.css}" rel="stylesheet" type="text/css" media="screen">
     <title>Profil</title>
 </head>
 <body class="bg-light">
 
 <!-- Navbar -->
 <nav class="navbar navbar-dark fixed-top bg-dark navbar-expand-sm p-0" >
-    <a class="navbar-brand col-5 col-sm-3 col-md-2 mr-0" href="#"><i class="fas fa-water"></i> Zugprüfmaschine</a>
+    <a class="navbar-brand col-5 col-sm-3 col-md-2 ">
+        <img th:src="@{/images/test.png}" alt="Bild" height="30%" width="40%"></a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
         <i class="fas fa-caret-down"></i>
@@ -44,7 +44,7 @@
             </li>
         </ul>
         <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Optionen
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span sec:authentication="principal.username"></span>
             <span class="caret"></span></button>
              <ul class="dropdown-menu">
                 <li class ="divider"><a href="/logout">Abmelden</a></li>
@@ -53,20 +53,69 @@
     </div>
 </nav>
 
+<!-- Main -->
+<div class="container-fluid">
+    <!-- Row -->
+    <div class="row">
+        <!-- Content -->
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-3 content">
+            <br>
+            <br>
+            <div class="row mt-3">
+                <div class="col-lg-8 col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header bg-white">
+                            <h2 style="padding-top: 3px">Profile</h2>
+                        </div>
+                        <div class="card-body">
+                            <form class="form-container" th:action="@{/userprofile}" method="post" th:object = "${dto}">
+                                <div class="mb-3">
+                                    <b> <label class="control-label" > Vorname: </label></b><br>
+                                    <b><text id="firstName" class="form-control" th:text="${dto.getFirstName()}"></text></b>
+                                </div>
+                                <div class="mb-3">
+                                    <b> <label class="control-label" > Nachname: </label></b><br>
+                                    <b> <text id="firstName" class="form-control" th:text="${dto.getLastName()}"></text></b>
+                                </div>
+                                <div class="mb-3">
+                                    <b>  <label class="control-label"> Rolle: </label></b><br>
+                                    <b>  <text id="role" class="form-control" th:text="${dto.getRole()}"></text></b>
+                                </div>
+                                <div class="mb-3">
+                                    <b><label class="control-label" > Neues Passwort: </label></b><br>
+                                    <input id ="oldPw" class="form-control" type="password" required autofocus="autofocus" th:field ="*{oldPw}"/><br>
+                                    <b><label class="control-label"> Neues Passwort wiederholen: </label></b><br>
+                                    <input id ="newPw" class="form-control" type="password" required autofocus="autofocus" th:field ="*{newPw}"/><br>
+                                    <div class="mb-3">
+                                        <a href="/userprofile"><button class="btn btn-primary" type="submit">Passwort ändern</button></a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Content -->
+    </div> <!-- End Row -->
+</div> <!-- End Main -->
+<!--
 <div class="vertical-center-profile" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
-<div class="container" th:align="center" >
-<div class="card" style="width: 50rem; height: 90%">
+<div class="container" th:align="left" >
+<div>
     <div class = "card-title">
          <div class="colFirst">
              <h2 class="card-title" style="padding-top: 3px">Profil</h2>
-             <img th:src="@{/images/userProfile.jpg}" alt="Bild" height="15%" width="20%">
+
+
          </div>
+
         <div class="colSecond">
             <h3 sec:authentication="principal.username"></h3>
         </div>
+
     </div>
 
-    <div class="card-body">
+   <div class="card-body">
     <form class="form-container" th:action="@{/userprofile}" method="post" th:object = "${dto}">
         <div class="mb-3">
             <b> <label class="control-label" > Vorname: </label></b><br>
@@ -81,66 +130,19 @@
                 <b>  <text id="role" class="form-control" th:text="${dto.getRole()}"></text></b>
         </div>
         <div class="mb-3">
-                <b><label class="control-label" > Passwort: </label></b><br>
+                <b><label class="control-label" > Neues Passwort: </label></b><br>
                     <input id ="oldPw" class="form-control" type="password" required autofocus="autofocus" th:field ="*{oldPw}"/><br>
-                    <b><label class="control-label"> Neues Passwort: </label></b><br>
+                    <b><label class="control-label"> Neues Passwort wiederholen: </label></b><br>
                 <input id ="newPw" class="form-control" type="password" required autofocus="autofocus" th:field ="*{newPw}"/><br>
              <div class="mb-3">
-               <a href="/userprofile"><button class="btn btn-primary" type="submit">Passwort Ändern</button></a>
+               <a href="/userprofile"><button class="btn btn-primary" type="submit">Passwort ändern</button></a>
             </div>
         </div>
-    </form>
+        </form>
 
     </div>
-</div>
-</div>
-</div>
-<!--<section class="container-fluid bg">
-    <section class="row justify-content-center">
-        <section class="col-md-5 col-sm-5 col-xs-12">
+    -->
 
-            <form class="form-container" th:action="@{/userprofile}" action = "#" method="post" th:object = "${user}">
-                <h2 class="tit">UserProfile</h2>
-                <div class="Info">
-                    <input id="tab-1" type="radio" name="tab" class="UserInfo" checked><label for="tab-1" class="tab">User Info</label>
-                    <input id="tab-2" type="radio" name="tab" class="ChangePass"><label for="tab-2" class="tab">Passwort ändern</label>
-                    <div class="UserProfile-form">
-                        <div class="UserInfo-htm">
-                            <div class="mb-3">
-                                <label class="control-label" > Vorname: </label><br>
-                                <text id="firstName" class="form-control" th:text="${user.getFirstName()}"></text>
-                            </div>
-                            <div class="mb-3">
-                                <label class="control-label" > Nachname: </label><br>
-                                <text id="firstName" class="form-control" th:text="${user.getLastName()}"></text>
-                            </div>
-                            <div class="mb-3">
-                                <label class="control-label" > Rolle: </label><br>
-                                <text id="firstName" class="form-control" th:text="${user.getFirstName()}"></text>
-                            </div>
-                        </div>
-                        <div class="ChangePass-htm">
-                            <div class="mb-3">
-                                <label class="control-label" for="oldPw">Altes Password </label>
-                                <input id = "oldPw" class="form-control" type="password" required autofocus="autofocus" />
-                            </div>
-                            <div class="mb-3">
-                                <label class="control-label" for="newPassword">Neues Password </label>
-                                <input id = newPassword class="form-control" type="password" required autofocus="autofocus" />
-                            </div>
-                            <div class="mb-3">
-                                <label class="control-label" for="password">Neues Password wiederholen </label>
-                                <input id = password class="form-control" type="password" required autofocus="autofocus" th:field = "*{password}"/>
-                            </div>
-                            <button type="submit" class="btn btn-success btn-primary btn-block mb-3">Speichern</button>
-                        </div>
-                </div>
-                </div>
-            </form>
-        </section>
-    </section>
-</section>
--->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
 <!-- Charts -->

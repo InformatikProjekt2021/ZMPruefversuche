@@ -1,5 +1,23 @@
 body{
-    font-size: 0.875rem;
+    color:#6a6f8c;
+    background:#cad2d9;
+    height: 100%;
+}
+.vertical-center-profile{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+.container{
+    background: #fff;
+    position: relative;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px #000;
+    width:50rem;
+    height:90%;
 }
 /* Navbar */
 .navbar-brand {
@@ -58,7 +76,6 @@ body{
 .sidebar .nav-link.active,
 .sidebar .nav-link.active span.nav-icon {
     color: #007bff;
-    background-color: none;
 }
 
 .sidebar .nav-link:hover .nav-icon,
@@ -120,14 +137,6 @@ span.kpi-text{
     display: flex;
     align-items: center;
 }
-
-.vertical-center-profile{
-    min-height: 100%;
-    margin-top: 10%;
-    display: flex;
-    align-items: center;
-}
-
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto auto;
@@ -135,4 +144,20 @@ span.kpi-text{
 .li{
     display: flex;
     align-items: center;
+}
+.hinzüfugen{
+    float: right;
+    margin-top: 17px;
+}
+.btn-special{
+    background-color: red;
+    border: red;
+    margin-top: 100px;
+
+}
+.btn:hover:after{
+    border: red;
+}
+h2{
+    display: inline-block;
 }

@@ -24,7 +24,7 @@ public class AddUserController {
 
     @GetMapping
     public String testing() {
-        return "addUser";
+        return "AddUser";
     }
 
 

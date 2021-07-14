@@ -24,7 +24,8 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-dark fixed-top bg-dark navbar-expand-sm p-0" >
-  <a class="navbar-brand col-5 col-sm-3 col-md-2 mr-0" href="#"><i class="fas fa-water"></i> Zugprüfmaschine</a>
+  <a class="navbar-brand col-5 col-sm-3 col-md-2 ">
+    <img th:src="@{/images/test.png}" alt="Bild" height="30%" width="40%"></a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
     <i class="fas fa-caret-down"></i>
@@ -43,7 +44,7 @@
       </li>
     </ul>
     <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Optionen
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span sec:authentication="principal.username"> User</span>
         <span class="caret"></span></button>
       <ul class="dropdown-menu">
         <li class ="divider"><a href="/userprofile">Profil</a></li>

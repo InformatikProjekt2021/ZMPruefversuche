@@ -20,7 +20,7 @@ public class UserManagementController {
 
     @GetMapping("/management")
     public String management() {
-        return "management";
+        return "ChangePass";
     }
 
     @GetMapping("/management/delete/{id}")

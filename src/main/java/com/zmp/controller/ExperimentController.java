@@ -46,7 +46,7 @@ public class ExperimentController {
 
     @GetMapping()
     public String management() {
-        return "experiment";
+        return "Experiment";
     }
 
     @PostMapping

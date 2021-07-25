@@ -22,7 +22,7 @@ public class ExperimentManagementController {
 
     @GetMapping
     public String getView(){
-        return "/experimentManagement";
+        return "experimentmanagement";
     }
     @GetMapping("/delete/{id}")
     public String deleteIncome(@PathVariable(value = "id") Long id, Model model) {

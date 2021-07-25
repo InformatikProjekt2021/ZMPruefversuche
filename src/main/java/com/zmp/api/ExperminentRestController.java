@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * API for Experiments
+ * this class can be used to communicate with the database
+ */
+
 @RestController
 @RequestMapping("/api/experiment")
 public class ExperminentRestController {
@@ -22,11 +27,19 @@ public class ExperminentRestController {
     ExperimentService experimentService;
     UserRepository userRepository;
 
+    /**
+     * Constructor is called on application start
+     */
     public ExperminentRestController(ExperimentService experimentService,UserRepository userRepository){
         this.experimentService = experimentService;
         this.userRepository = userRepository;
     }
 
+    /**
+     * Function to get all Experiments by GET request
+     * uses a DTO to transfer relevant Data from the real db entity
+     * @return returns A HTTP responsentity with a List of all Experiments in its body
+     */
     @GetMapping("/all")
     public ResponseEntity<List<ExperimentDto>> getAllExperiments() {
         List<Experiment> all = experimentService.getAllExperiment();
@@ -46,6 +59,10 @@ public class ExperminentRestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    /**
+     * Function to create new experiments by POST request
+     * @return returns A HTTP response entity with the new experiment and a "CREATED" code in its body
+     */
     @PostMapping("/new")
     public  ResponseEntity<Experiment> newExperiment(@RequestBody Experiment experiment){
         Date date  = new Date();

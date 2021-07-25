@@ -2,17 +2,28 @@ package com.zmp.communication;
 
 import com.zmp.model.PartResult;
 import com.zmp.model.Result;
+import com.zmp.services.PartResultService;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Connection extends Thread {
 
     private DataInputStream in;
     private DataOutputStream out;
+
+    public void receiveFile(File file) throws IOException {
+        FileOutputStream fileOut = new FileOutputStream(file);
+        byte[] buf = new byte[Short.MAX_VALUE];
+        int bytesSent;
+        while( (bytesSent = in.readShort()) != -1 ) {
+            in.readFully(buf,0,bytesSent);
+            fileOut.write(buf,0,bytesSent);
+        }
+        fileOut.close();
+    }
 
     public void writeStream(Double[] data){
         try{
@@ -25,14 +36,28 @@ public class Connection extends Thread {
         } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
     }
 
-    public PartResult readStream(){
+    public void readStream(PartResultService partResultService){
         PartResult partResult = null;
         Result result = null;
+        List<PartResult> listOfResults = new ArrayList<>();
+        File file;
+        String OS = System.getProperty("os.name");
+
+        result = new Result();
         try {
-            while(true) {
-                String data = in.readUTF();
+            if(OS.contains("Windows")) {
+                file = new File("..\\receivedFileServer.txt");
+            }else{
+                file = new File("/../receivedFileServer.txt");
+            }
+
+            receiveFile(file);
+            System.out.println("File received "+file.length()+" bytes");
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String data;
+            while ((data = br.readLine()) != null){
                 data = data.replaceAll(",",".");
-                System.out.println("server receives: "+data);
                 String[] params = data.split(";");
 
                 double[] converted = new double[6];
@@ -43,16 +68,18 @@ public class Connection extends Thread {
                         System.out.println(" Parsing failed:"+ e.getMessage());
                     }
                 }
-                result = new Result();
 
                 partResult = new PartResult(converted[0],result,ConnectionHandler.getExperiment(),converted[4],
                         converted[5],converted[3],converted[2],converted[1]);
 
+                listOfResults.add(partResult);
+
+                partResultService.save(partResult);
             }
         } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
         } catch( NullPointerException e) {System.out.println("End of message");
         } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
-        return partResult;
+        ConnectionHandler.getExperiment().setPartResult(listOfResults);
     }
 
     public Connection (Socket aClientSocket) {

@@ -3,7 +3,6 @@ package com.zmp.controller;
 import com.zmp.communication.Connection;
 import com.zmp.communication.ConnectionHandler;
 import com.zmp.model.Experiment;
-import com.zmp.model.PartResult;
 import com.zmp.model.User;
 import com.zmp.repositories.UserRepository;
 import com.zmp.services.ExperimentService;
@@ -56,17 +55,21 @@ public class ExperimentController {
             ConnectionHandler.setExperiment(experiment);
             Connection tcp = new Connection(ConnectionHandler.getClientSocket());
             ConnectionHandler.setConnection(tcp);
+            //prepare experiment data to send
             Double[] data = new Double[4];
             data[0] = experiment.getHeight();
             data[1] = experiment.getTestSpeed();
             data[2] = experiment.getyAxisForce();
             data[3] = experiment.getWidth();
-
+            //send data
             tcp.writeStream(data);
-            PartResult partResult = tcp.readStream();
 
-            if(partResult != null) {
-                 partResultService.save(partResult);
+            //read data
+            tcp.readStream(this.partResultService);
+
+            //prepare and save newly created experiment
+            System.out.println("DataSets received:"+experiment.getPartResult().size()+" for experiment: "+experiment.getId());
+            if(experiment.getPartResult() != null && experiment.getPartResult().size() > 0) {
                  Date date  = new Date();
                  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                  String currentPrincipalName = auth.getName();

@@ -19,17 +19,16 @@
             <form class="form-container" th:action="@{/addUser}" method="post" th:object="${user}">
                 <!-- success message -->
                 <div th:if="${param.success}">
-                    <div class="alert alert-info">You've successfully registered
-                        to our awesome app!</div>
+                    <div class="alert alert-info">Sie wurden erfolgreich registriert!</div>
                 </div>
                 <h1 class="tit">Benutzer Hinzufügen</h1><br>
                 <div class="mb-3">
-                    <label class="control-label" for="firstName"> First Name </label>
+                    <label class="control-label" for="firstName"> Vorname </label>
                     <input id="firstName" class="form-control" th:field="*{firstName}"
                            required autofocus="autofocus" />
                 </div>
                 <div class="mb-3">
-                    <label class="control-label" for="lastName"> Last Name </label> <input
+                    <label class="control-label" for="lastName"> Nachname </label> <input
                         id="lastName" class="form-control" th:field="*{lastName}"
                         required autofocus="autofocus" />
                 </div>
@@ -39,16 +38,18 @@
                         autofocus="autofocus" />
                 </div>
                 <div class="mb-3">
-                    <label class="control-label" for="password"> Password </label> <input
+                    <label class="control-label" for="password"> Passwort </label> <input
                         id="password" class="form-control" type="password"
                         th:field="*{password}" required autofocus="autofocus" />
                 </div>
                 <div class="mb-3">
-                    <label class="control-label" for="role"> Rolle </label> <input
-                        id="role" class="form-control"
-                        th:field="*{role}" required autofocus="autofocus" />
+                    <label class="control-label" for="role"> Rolle </label>
+                    <select id="role" class="form-control" th:field="*{role}" required autofocus="autofocus">
+                    <option value="ROLE_ADMIN">Role_Admin</option>
+                    <option value="ROLE_USER">Role_User</option>
+                    </select>
                 </div>
-                <button type="submit" class="btn btn-primary btn-success btn-block"><span class="glyphicon glyphicon-log-in">Register</span></button>
+                <button type="submit" class="btn btn-primary btn-success btn-block"><span class="glyphicon glyphicon-log-in">Registrieren</span></button>
             </form>
         </section>
     </section>

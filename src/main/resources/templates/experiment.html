@@ -2,110 +2,141 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
-  <!-- Meta Tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 
     <link th:href="@{css/haupt.css}" rel="stylesheet" type="text/css" media="screen">
 
-    <link th:href="@{css/button.css}" rel="stylesheet" type="text/css" media="screen">
-
-  <title>Hauptfenster</title>
+    <title>Hauptfenster</title>
 
 </head>
 <body class="bg-light">
+
 <!-- Navbar -->
 <nav class="navbar navbar-dark fixed-top bg-dark navbar-expand-sm p-0">
-  <a class="navbar-brand col-5 col-sm-3 col-md-2 mr-0" href="#"><i class="fas fa-water"></i> Zugprüfmaschine</a>
+    <a class="navbar-brand col-5 col-sm-3 col-md-2 ">
+        <img th:src="@{/images/test.png}" alt="Bild" height="30%" width="40%"></a>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
-    <i class="fas fa-caret-down"></i>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarMain">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
-      </li>
-      <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-        <a class="nav-link" href="/management">Benutzerverwaltung</a>
-      </li>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain"></button>
+    <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" href="/management">Benutzerverwaltung</a>
+            </li>
 
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/experimentmanagement}">Messdatenverwaltung</a>
-      </li>
-    </ul>
-      <div class="dropdown" style="padding-right: 5px">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Optionen
-              <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-              <li class ="li"><a href="/userprofile">Profil</a></li>
-              <li class ="li"><a href="/logout">Abmelden</a></li>
-          </ul>
-      </div>
-  </div>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/experimentmanagement}">Messdatenverwaltung</a>
+            </li>
+        </ul>
+        <div class="dropdown" style="padding-right: 5px">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span sec:authentication="principal.username"></span>
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li class ="li"><a href="/userprofile">Profil</a></li>
+                <li class ="li"><a href="/logout">Abmelden</a></li>
+            </ul>
+        </div>
+    </div>
 </nav>
 
 <!-- Main -->
+<div class="container-fluid">
 
-    <!-- Content -->
-    <div class=vertical-center-profile>
-        <div class="container" th:align="center" >
-        <div class="card" style="width: 50rem; height: 100%">
-            <div class="card-title">
-                <h2 style="padding-top: 3px">Experiment erstellen</h2>
-            <div th:if="${param.success}">
-                <div class="alert alert-info">experiment erstellt!</div>
+    <!-- Row -->
+    <div class="row">
+
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+            <div class="sidebar-sticky bg-darker">
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block btn-special"> STOP </button>
             </div>
-                <div th:if="${param.error}">
-                    <div class="alert alert-danger">experiment konnte nicht erstellt werden!</div>
+        </nav> <!-- End Sidebar -->
+
+        <!-- Content -->
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-3 content">
+            <br>
+            <br>
+            <!-- Charts Part 1-->
+            <div class="row mt-3">
+                <!-- Umsatz Chart -->
+                <div class="col-lg-8 col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header bg-white">
+                            <h2 style="padding-top: 3px">Experiment erstellen</h2>
+                        </div>
+                        <div class="card-body">
+                            <div th:if="${param.success}">
+                                <div class="alert alert-info">experiment erstellt!</div>
+                            </div>
+                            <div th:if="${param.error}">
+                                <div class="alert alert-danger">experiment konnte nicht erstellt werden!</div>
+                            </div>
+                            <form class="form-container" th:action="@{/experiment}" action = "#" method="post" th:object = "${experiment}" autocomplete="off">
+                                <div class="mb-3">
+                                    <label class="control-label" for="name"> Name: </label>
+                                    <input id ="name" type="text" th:field = "*{name}" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="control-label" for="force"> Kraft: </label>
+                                    <input id ="force" type=number th:field = "*{yAxisForce}" step="0.01" placeholder="0.0"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="control-label" for="speed"> Geschw.: </label>
+                                    <input id ="speed" type=number th:field = "*{testSpeed}" step="0.01" placeholder="0.0"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="control-label" for="height" > Höhe: </label>
+                                    <input id ="height" type=number th:field = "*{height}" step="0.01" placeholder="0.0"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="control-label" for="width" > Breite </label>
+                                    <input id ="width" type=number th:field = "*{width}" step="0.01" placeholder="0.0"/>
+                                </div>
+                                <br>
+                                <div class="mb-9">
+                                    <button type="submit" class="btn btn-primary btn-success btn-block">Experiment starten</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-          <div class="card-body ">
-              <form class="form-container" th:action="@{/experiment}" action = "#" method="post" th:object = "${experiment}" autocomplete="off">
-                  <div class="mb-3">
-                      <label class="control-label" for="name"> Name: </label><br>
-                      <input id ="name" type="text" th:field = "*{name}" />
-                  </div>
-                  <div class="mb-3">
-                      <label class="control-label" for="force"> Kraft: </label><br>
-                      <input id ="force" type=number th:field = "*{yAxisForce}" step="0.01" placeholder="0.0"/>
-                  </div>
-                  <div class="mb-3">
-                    <label class="control-label" for="speed"> Geschw.: </label><br>
-                        <input id ="speed" type=number th:field = "*{testSpeed}" step="0.01" placeholder="0.0"/>
-                  </div>
-                  <div class="mb-3">
-                      <label class="control-label" for="height" > Höhe: </label><br>
-                        <input id ="height" type=number th:field = "*{height}" step="0.01" placeholder="0.0"/>
-                  </div>
-                  <div class="mb-3">
-                    <label class="control-label" for="width" > Breite </label><br>
-                        <input id ="width" type=number th:field = "*{width}" step="0.01" placeholder="0.0"/>
-                  </div>
-                  <br>
-                  <br>
-                  <div class="mb-9">
-                      <button type="submit" class="btn btn-primary btn-success btn-block">Experiment starten</button>
-                      <br>
-                      <button type="submit" class="btn btn-danger btn-block">Stop</button>
-                  </div>
-                  <br>
-                  <br>
-              </form>
-          </div>
-        </div>
-      </div><!-- End KPIs -->
-    </div> <!-- End Content --><!-- End Row --> <!-- End Main -->
 
+            <div class="col-lg-8 col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header bg-white">
+                        <h6 class="card-title mb-0">Kraft-Weg Diagramm</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas  width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End Content -->
+    </div> <!-- End Row -->
+</div> <!-- End Main -->
+
+<!-- Optional JavaScript -->
 
 <!-- Chart.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+<!-- Charts -->
+
 <!-- jQuery, Popper.js, Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

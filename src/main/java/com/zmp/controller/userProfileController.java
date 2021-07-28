@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller to manage user profile view
+ */
 @Controller
 @RequestMapping("/userprofile")
 public class userProfileController {

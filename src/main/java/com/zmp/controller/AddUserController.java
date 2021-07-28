@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * controller to add new Users if youre admin
+ */
 @Controller
 @RequestMapping("/addUser")
 public class AddUserController {

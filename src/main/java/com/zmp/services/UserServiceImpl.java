@@ -16,6 +16,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
+/**
+ * spring security pattern for user management
+ */
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -23,6 +26,7 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
 
     public UserServiceImpl(UserRepository userRepository) {
         super();

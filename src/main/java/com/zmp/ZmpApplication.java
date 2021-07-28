@@ -14,6 +14,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
 
+/**
+ * main class that also accepts tcp connections to port 8081
+ */
 @SpringBootApplication
 @EnableWebSecurity
 public class ZmpApplication {

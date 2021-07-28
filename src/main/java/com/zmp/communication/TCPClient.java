@@ -4,6 +4,9 @@ import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * simulates the tcp client that sends the experiment results as a file
+ */
 public class TCPClient {
     private DataInputStream input;
 

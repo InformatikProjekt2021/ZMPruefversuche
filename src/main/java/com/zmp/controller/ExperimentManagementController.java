@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
+/**
+ * Controller to manage experimentmanagement view
+ */
 @Controller
 @RequestMapping("/experimentmanagement")
 public class ExperimentManagementController {

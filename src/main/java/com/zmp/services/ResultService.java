@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * service to access the result repository
+ */
 @Service
 @Transactional
 public class ResultService {

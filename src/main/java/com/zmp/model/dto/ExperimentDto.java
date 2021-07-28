@@ -1,5 +1,8 @@
 package com.zmp.model.dto;
 
+/**
+ * DTO to translate entered parameters to a full experiment
+ */
 public class ExperimentDto {
     private double testSpeed;
     private double yAxisForce;

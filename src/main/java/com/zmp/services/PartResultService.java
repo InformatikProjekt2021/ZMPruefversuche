@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+/**
+ * service to access the Part result repository
+ */
 @Service
 @Transactional
 public class PartResultService {

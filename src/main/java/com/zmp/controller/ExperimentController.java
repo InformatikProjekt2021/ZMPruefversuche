@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
 
+/**
+ * Controller to manage a new Experiment
+ */
 @Controller
 @RequestMapping("/experiment")
 public class ExperimentController {

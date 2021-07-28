@@ -4,6 +4,10 @@ import com.zmp.model.Experiment;
 
 import java.net.Socket;
 
+/**
+ * class that holds all necessary data for successfully starting a new Experiment
+ * and receiving results
+ */
 public class ConnectionHandler {
 
     private static Connection connection;

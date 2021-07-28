@@ -2,6 +2,10 @@ package com.zmp.model.dto;
 
 import com.zmp.model.User;
 
+
+/**
+ * DTO to translate entered parameters to a registered user Object
+ */
 public class UserFormDto {
 
     private String firstName;

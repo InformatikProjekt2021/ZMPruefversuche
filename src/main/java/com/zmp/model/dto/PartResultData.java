@@ -1,5 +1,9 @@
 package com.zmp.model.dto;
 
+
+/**
+ * DTO to translate part result data for later usage
+ */
 public class PartResultData {
     private String Zeit_s;
     private String Kraft_N;

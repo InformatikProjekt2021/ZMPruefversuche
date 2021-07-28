@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
+/**
+ * Controller to manage user management view
+ */
 @Controller
 public class UserManagementController {
 

@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * service to access the Experiment repository
+ */
 @Service
 @Transactional
 public class ExperimentService {

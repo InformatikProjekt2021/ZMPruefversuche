@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 
+/**
+ * user entity
+ */
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User implements UserDetails {
@@ -33,6 +36,9 @@ public class User implements UserDetails {
 
     }
 
+    /**
+     * constructor for DTO UserFormData
+     */
     public User(String firstName, String lastName, String email, String password, String role, String username) {
         super();
         this.firstName = firstName;

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 /**
  * controller to add new Users if youre admin
  */
@@ -40,6 +42,12 @@ public class AddUserController {
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") User user) {
         user.setUsername(user.getFirstName()+user.getLastName());
+        List<User> users  = userService.getAllUsers();
+        for(User tmp : users){
+            if(tmp.getEmail().equals(user.getEmail())){
+                return "redirect:/addUser?error";
+            }
+        }
         userService.save(user);
         return "redirect:/management";
     }

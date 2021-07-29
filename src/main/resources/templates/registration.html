@@ -20,6 +20,9 @@
         <div th:if="${param.success}">
           <div class="alert alert-info">Sie wurden erfolgreich registriert!</div>
         </div>
+        <div th:if="${param.error}">
+          <div class="alert alert-info">Die Registrierung ist fehlgeschlagen: Die Email Adresse ist schon vergeben</div>
+        </div>
         <h1 class="tit">Registrierung</h1><br>
         <div class="mb-3">
           <label class="control-label" for="firstName"> Vorname </label>

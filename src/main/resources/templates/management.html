@@ -15,6 +15,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link th:href="@{css/haupt.css}" rel="stylesheet" type="text/css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../static/css/haupt.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <script>
@@ -25,15 +26,17 @@
             xmlhttp.onreadystatechange = function () {
                 if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
                     var users = JSON.parse(xmlhttp.responseText);
-                    var tblHead = `<table class = "w3-table-all w3-hoverable"">
-                                    <tr> <th>Id</th><th>Vorname</th><th>Nachname</th><th>Email</th><th>Rolle</th><th>Löschen</th></tr>`;
+                    var tblHead = `<table class = "w3-table w3-hoverable"">
+                                    <tr> <th>Id</th><th>Vorname</th><th>Nachname</th><th>
+                                    Email</th><th>Rolle</th><th>Löschen</th></tr>`;
                     var body = "<tbody>";
                     for(let i=1; i < users.length;i++){
 
                         body += "<tr><td>" +users[i].id+" </td> <td>"+users[i].firstName+"</td>" +
                             "<td>"+users[i].lastName+"</td><td>"+users[i].email+"</td> <td>"+users[i].role+"</td>"+
-                                "<td>"+`<a href="/management/delete/${users[i].id}"><input class="btn btn-danger" value="Löschen" ></a>`+
-                                "</td></tr>";
+                            "<td>"+`<a href="/management/delete/${users[i].id}">
+                                <input class="btn btn-danger" value="Löschen" ></a>`+
+                            "</td></tr>";
 
                     }
                     body+= "</tbody>"
@@ -54,7 +57,8 @@
 <body class="bg-light">
 
 <nav class="navbar navbar-dark fixed-top bg-dark navbar-expand-sm p-0">
-    <a class="navbar-brand col-5 col-sm-3 col-md-2 mr-0" href="#"><i class="fas fa-water"></i> Zugprüfmaschine</a>
+    <a class="navbar-brand col-5 col-sm-3 col-md-2 ">
+        <img th:src="@{/images/test.png}" alt="Bild" height="30%" width="40%"></a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
         <i class="fas fa-caret-down"></i>
@@ -72,7 +76,7 @@
             </li>
         </ul>
         <div class="dropdown" style="padding-right: 5px">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Optionen
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span sec:authentication="principal.username"></span>
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li class ="divider"><a href="/userprofile">Profil</a></li>
@@ -81,20 +85,47 @@
         </div>
     </div>
 </nav>
-
+<!--
 <div class="vertical-center" sec:authorize="hasRole('ROLE_ADMIN')">
-    <div class="container" th:align="center">
-        <a href='addUser'>
-            <input class="btn btn-success" value="Benutzer Hinzüfugen" >
+    <div class="container" >
+        <a href='addUser' class="btn btn-success hinzüfugen">
+            <i class="fab">&#xf4e7;</i>
+            <span>User hinzüfugen</span>
+            <input class="btn btn-success hinzüfugen"  value="Benutzer Hinzüfugen" >
         </a>
         <div id = "user"></div>
     </div>
 </div>
+-->
+<!-- Main -->
+<div class="container-fluid">
+    <!-- Row -->
+    <div class="row">
+        <!-- Content -->
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-3 content">
+            <br>
+            <br>
+            <div class="row mt-3">
+                <div class="col-lg-8 col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header bg-white">
+                            <h2 style="padding-top: 3px">Userverwaltung</h2>
+                            <a href='addUser' class="btn btn-success hinzüfugen">
+                                <i class="fab">&#xf4e7;</i>
+                                <span>User hinzüfugen</span>
+                            </a>
+                        </div>
+                        <div class="card-body" id="user"> </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Content -->
+    </div> <!-- End Row -->
+</div> <!-- End Main -->
 <div class="vertical-center" sec:authorize="hasRole('ROLE_USER')">
     <div class="container" th:align="center">
         <h1>Sie verfügen nicht über die benötigte Berechtigung</h1>
     </div>
 </div>
-
 </body>
 </html>

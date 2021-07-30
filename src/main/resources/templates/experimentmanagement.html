@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <link th:href="@{css/haupt.css}" href="../../static/css/haupt.css" rel="stylesheet" type="text/css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../static/css/haupt.css">
     <script>
         const baseUrl = "http://localhost:8080/api/experiment/all";
         function loadExperiment(){
@@ -26,13 +27,15 @@
             xmlhttp.onreadystatechange = function () {
                 if(xmlhttp.readyState === 4 && xmlhttp.status === 200) {
                     const experiments = JSON.parse(xmlhttp.responseText);
-                    const tblHead = `<table class = "w3-table-all w3-hoverable" >
+                    const tblHead = `<table class = "w3-table w3-hoverable" >
                                     <tr><th>Name</th> <th>Id</th><th>Kraft</th><th>Geschw.</th><th>Höhe</th><th>Breite</th><th>Löschen</th></tr>`;
                     let body = "<tbody>";
                     for (let i = 0; i < experiments.length; i++) {
                         console.log(experiments[i])
                         body += "<tr><td>" + experiments[i].name + " </td><td>" + experiments[i].id + " </td> <td>" + experiments[i].yAxisForce + "</td>" +
-                            "<td>" + experiments[i].testSpeed + "</td><td>" + experiments[i].height + "</td> <td>" + experiments[i].width + "</td><td>"+`<a href="/experimentmanagement/delete/${experiments[i].id}"><input class="btn btn-danger" value="Löschen" ></a>`+"</td></tr>";
+                            "<td>" + experiments[i].testSpeed + "</td><td>" + experiments[i].height + "</td> <td>" + experiments[i].width + "</td><td>"+
+                            `<a href="/experimentmanagement/delete/${experiments[i].id}">
+                              <input class="btn btn-danger" value="Löschen" ></a>`+"</td></tr>";
 
                     }
                     body += "</tbody>"
@@ -57,7 +60,8 @@
 </head>
 <body class="bg-light">
 <nav class="navbar navbar-dark fixed-top bg-dark navbar-expand-sm p-0">
-    <a class="navbar-brand col-5 col-sm-3 col-md-2 mr-0" href="#"><i class="fas fa-water"></i> Zugprüfmaschine</a>
+    <a class="navbar-brand col-5 col-sm-3 col-md-2 ">
+        <img th:src="@{/images/test.png}" alt="Bild" height="30%" width="40%"></a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
         <i class="fas fa-caret-down"></i>
@@ -75,7 +79,7 @@
             </li>
         </ul>
         <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Optionen
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span sec:authentication="principal.username"></span>
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li class ="divider"><a href="/userprofile">Profil</a></li>
@@ -84,13 +88,28 @@
         </div>
     </div>
 </nav>
-<div class="vertical-center" >
-    <div class="container" th:align="center">
-        <div id = "experiment">
+<!-- Main -->
+<div class="container-fluid">
+    <!-- Row -->
+    <div class="row">
+        <!-- Content -->
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-3 content">
+            <br>
+            <br>
+            <div class="row mt-3">
+                <div class="col-lg-8 col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header bg-white">
+                            <h2 style="padding-top: 3px">Messreihe Daten</h2>
+                        </div>
+                        <div id = "experiment"></div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Content -->
+    </div> <!-- End Row -->
+</div> <!-- End Main -->
 
-        </div>
-    </div>
-</div>
 
 </body>
 </html>

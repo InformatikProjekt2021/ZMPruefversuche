@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/userprofile")
-public class userProfileController {
+public class UserProfileController {
 
     private final UserRepository repository;
     private final UserService userService;
     private User user;
 
-    public userProfileController(UserRepository repository, UserService userService){
+    public UserProfileController(UserRepository repository, UserService userService){
         this.userService = userService;
         this.repository = repository;
     }

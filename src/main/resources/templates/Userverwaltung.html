@@ -34,15 +34,15 @@
                                     <tr> <th>Id</th><th>Vorname</th><th>Nachname</th><th>Email</th><th>Rolle</th></tr>`;
           var body = "<tbody>";
           for(let i=0; i < users.length;i++){
-            console.log(users[i])
+
             body += "<tr><td>" +users[i].id+" </td> <td>"+users[i].firstName+"</td>" +
                     "<td>"+users[i].lastName+"</td><td>"+users[i].email+"</td> <td>"+users[i].role+"</td></tr>";
-            console.log(body)
+           
           }
           body+= "</tbody>"
           var tblEnd = "</table>";
           var tbl = tblHead + body + tblEnd;
-          console.log(tbl)
+
           document.getElementById("user").innerHTML = tbl;
         }
       };

@@ -13,7 +13,7 @@
 
 
     <link th:href="@{css/haupt.css}" rel="stylesheet" type="text/css" media="screen">
-    <link rel="stylesheet" type="text/css" href="../static/css/haupt.css">
+
     <title>Hauptfenster</title>
 
 </head>
@@ -121,7 +121,7 @@
                         <h6 class="card-title mb-0">Kraft-Weg Diagramm</h6>
                     </div>
                     <div class="card-body">
-                        <canvas  width="400" height="400"></canvas>
+                        <canvas id="myChart"  width="200" height="200"></canvas>
                     </div>
                 </div>
             </div>
@@ -129,13 +129,57 @@
         </div> <!-- End Content -->
     </div> <!-- End Row -->
 </div> <!-- End Main -->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <!-- Optional JavaScript -->
+<script>
+    var chart1 = document.getElementById('myChart');
+
+    var myChart = new Chart(chart1, {
+        type: 'line',
+        data: {
+            labels: ["0,2", "0,22", "0,24", "0,26", "0,28", "0,3", "0,34"],
+            datasets: [{
+                data: [8.15,16.13,24.31,40.78,48.94,65.25,73.41],
+                label: "KraftwegDiagramm-1",
+                borderColor: "#3e95cd",
+                backgroundColor: "#3e95cd",
+                fill: false,
+                responsive: false,
+
+            }, {
+                data: [4.15,10.13,22.31,38.78,45.94,60.25,70.41],
+                label: "KraftwegDiagramm-2",
+                borderColor: "#8A2BE2",
+                backgroundColor: "#8A2BE2",
+                fill: false,
+                responsive: false,
+            }, {
+                data: [7.15,10.13,20.31,38.78,44.94,60.25,75.41],
+                label: "KraftwegDiagramm-3",
+                borderColor: "#5F9EA0",
+                backgroundColor:"#5F9EA0",
+                fill: false,
+                responsive: false,
+            }, {
+                data: [6,3,2,2,7,0,16],
+                label: "KraftwegDiagramm-4",
+                borderColor: "#7A8B8B",
+                backgroundColor:"#7A8B8B",
+                fill: false,
+                responsive: false,
+            }
+            ]
+        }
+
+    });
+</script>
 
 <!-- Chart.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
 <!-- Charts -->
+
+
 
 <!-- jQuery, Popper.js, Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

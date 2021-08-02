@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.zmp'
-version = '1.2'
+version = '1.4'
 sourceCompatibility = '11'
 mainClassName = "com.zmp.ZmpApplication"
 

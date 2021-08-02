@@ -20,7 +20,6 @@ public class Connection extends Thread {
     /**
      * function to receive a text or csv file from a tcp client
      * @param file received file
-     * @throws IOException
      */
     public void receiveFile(File file) throws IOException {
         FileOutputStream fileOut = new FileOutputStream(file);

@@ -10,10 +10,8 @@
 }
 
 .positionButton{
-    position: absolute;
+    position: relative;
     width: 150px;
     height: 25px;
-    top: 60px;
     left: 404px;
-
 }

@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * API for Users Profile
- * this class can be used to communicate with the database
+ * currently not in use
+ * this class can be used to communicate with the database (Rest endpoint)
  */
 
 @RestController

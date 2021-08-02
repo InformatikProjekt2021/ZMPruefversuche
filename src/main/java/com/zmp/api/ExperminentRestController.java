@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * API for Experiments
- * this class can be used to communicate with the database
+ * this class can be used to communicate with the database (Rest endpoint)
  */
 
 @RestController
@@ -61,6 +61,7 @@ public class ExperminentRestController {
 
     /**
      * Function to create new experiments by POST request
+     * currently not in use, experiment is built over ExperimentController in Package controller
      * @return returns A HTTP response entity with the new experiment and a "CREATED" code in its body
      */
     @PostMapping("/new")

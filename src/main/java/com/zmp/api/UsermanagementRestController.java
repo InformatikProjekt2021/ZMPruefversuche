@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * API for Users
- * this class can be used to communicate with the database
+ * this class can be used to communicate with the database (Rest endpoint)
  */
 
 @RestController

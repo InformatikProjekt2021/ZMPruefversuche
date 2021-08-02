@@ -42,7 +42,7 @@ public class TCPClient {
         fileIn.close();
     }
 
-    public static void main (String args[]) {
+    public static void main (String[] args) {
             TCPClient client = new TCPClient();
         try{
             int serverPort = 8081;

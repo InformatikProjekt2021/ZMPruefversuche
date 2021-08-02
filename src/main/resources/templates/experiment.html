@@ -21,7 +21,9 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-dark fixed-top bg-dark navbar-expand-sm p-0">
-    <a class="navbar-brand col-5 col-sm-3 col-md-2 mr-0" href="#"> <img th:src="@{/images/test.png}" alt="Bild" height="30px" width="80px"></a> </a>
+    <a class="navbar-brand col-5 col-sm-3 col-md-2 ">
+        <img th:src="@{/images/test.png}" alt="Bild" height="30%" width="40%"></a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain"></button>
     <div class="collapse navbar-collapse" id="navbarMain">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -119,7 +121,7 @@
                         <h6 class="card-title mb-0">Kraft-Weg Diagramm</h6>
                     </div>
                     <div class="card-body">
-                        <canvas id="myChart" width="400" height="150"></canvas>
+                        <canvas id="myChart"  width="400" height="150"></canvas>
                     </div>
                 </div>
             </div>
@@ -127,49 +129,54 @@
         </div> <!-- End Content -->
     </div> <!-- End Row -->
 </div> <!-- End Main -->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <!-- Optional JavaScript -->
+<script>
+    var chart1 = document.getElementById('myChart');
+
+    var myChart = new Chart(chart1, {
+        type: 'line',
+        data: {
+            labels: ["0,2", "0,22", "0,24", "0,26", "0,28", "0,3", "0,34"],
+            datasets: [{
+                data: [8.15,16.13,24.31,40.78,48.94,65.25,73.41],
+                label: "KraftwegDiagramm-1",
+                borderColor: "#3e95cd",
+                backgroundColor: "#3e95cd",
+                fill: false,
+
+            }, {
+                data: [4.15,10.13,22.31,38.78,45.94,60.25,70.41],
+                label: "KraftwegDiagramm-2",
+                borderColor: "#8A2BE2",
+                backgroundColor: "#8A2BE2",
+                fill: false,
+
+            }, {
+                data: [7.15,10.13,20.31,38.78,44.94,60.25,75.41],
+                label: "KraftwegDiagramm-3",
+                borderColor: "#5F9EA0",
+                backgroundColor:"#5F9EA0",
+                fill: false,
+            }, {
+                data: [6,3,2,2,7,0,16],
+                label: "KraftwegDiagramm-4",
+                borderColor: "#7A8B8B",
+                backgroundColor:"#7A8B8B",
+                fill: false,
+            }
+            ]
+        }
+
+    });
+</script>
 
 <!-- Chart.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-<script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['0', '0.01', '0.02', '0.03', '0.04', '0.05', '0.06', '0.07', '0.08', '0.09', '0.1'],
-            datasets: [{
-                label: 'Kraft ~ Weg',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
+
 <!-- Charts -->
+
+
 
 <!-- jQuery, Popper.js, Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

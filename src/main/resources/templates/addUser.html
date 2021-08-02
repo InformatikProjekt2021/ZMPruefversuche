@@ -19,7 +19,7 @@
             <form class="form-container" th:action="@{/addUser}" method="post" th:object="${user}">
                 <!-- success message -->
                 <div th:if="${param.success}">
-                    <div class="alert alert-info">Sie wurden erfolgreich registriert!</div>
+                    <div class="alert alert-info">Sie wurden erfolgreich hinzugefügt</div>
                 </div>
                 <div th:if="${param.error}">
                     <div class="alert alert-info">Die Registrierung ist fehlgeschlagen: Die Email Adresse ist schon vergeben</div>
@@ -52,7 +52,7 @@
                     <option value="ROLE_USER">Role_User</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary btn-success btn-block"><span class="glyphicon glyphicon-log-in">Registrieren</span></button>
+                <button type="submit" class="btn btn-primary btn-success btn-block"><span class="glyphicon glyphicon-log-in">Hinzufügen</span></button>
             </form>
         </section>
     </section>

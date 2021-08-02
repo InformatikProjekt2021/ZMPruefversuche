@@ -56,4 +56,21 @@ public class UsermanagementRestController {
     public void editUser(@RequestBody User user){
         userService.updateUser(user);
     }
+
+    /**
+     * Function to edit a user by POST request
+     * @return returns A HTTP responsentity with the newly edited User
+     */
+    @PostMapping("/add")
+    public ResponseEntity<?> addUser(@RequestBody User user){
+        user.setUsername(user.getFirstName()+user.getLastName());
+        List<User> users  = userService.getAllUsers();
+        for(User tmp : users){
+            if(tmp.getEmail().equals(user.getEmail())){
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        userService.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

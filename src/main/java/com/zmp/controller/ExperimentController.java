@@ -82,6 +82,7 @@ public class ExperimentController {
                  experimentService.addExperiment(experiment);
             }else {
             System.out.println("client doesnt respond");
+                return "redirect:/experiment?error";
             }
         }else{
             return "redirect:/experiment?error";

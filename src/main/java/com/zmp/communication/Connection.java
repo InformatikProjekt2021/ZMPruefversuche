@@ -21,30 +21,39 @@ public class Connection extends Thread {
      * function to receive a text or csv file from a tcp client
      * @param file received file
      */
-    public void receiveFile(File file) throws IOException {
+    public String receiveFile(File file) throws IOException {
         FileOutputStream fileOut = new FileOutputStream(file);
         byte[] buf = new byte[Short.MAX_VALUE];
         int bytesSent;
-        while( (bytesSent = in.readShort()) != -1 ) {
-            in.readFully(buf,0,bytesSent);
-            fileOut.write(buf,0,bytesSent);
+        String dataset = null;
+        try {
+            while ((bytesSent = in.readShort()) != -1) {
+                in.readFully(buf, 0, bytesSent);
+                fileOut.write(buf, 0, bytesSent);
+            }
+            fileOut.close();
+            dataset = new String(buf);
+        } catch (EOFException e) {
+            System.out.println(" EOF:" + e.getMessage());
         }
-        fileOut.close();
+        return dataset;
     }
 
     /**
-     * writes the parameter of the current experiment to outputstream
+     * writes the parameter of the current experiment as 8-byte quantity to outputstream
      * @param data parameters of the current experiment
      */
     public void writeStream(Double[] data){
         try{
             for (double d : data) {
-                out.writeDouble(d);
+                out.writeUTF(String.valueOf(d));
                 System.out.println("Server writes: "+d);
             }
+
         } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
         } catch( NullPointerException e) {System.out.println(" NullPointer:"+ e.getMessage());
         } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
+
     }
 
     /**
@@ -52,7 +61,7 @@ public class Connection extends Thread {
      * ich line is a partExperiment will be stored in the database and outputfile
      * @param partResultService service to access partResult repository
      */
-    public void readStream(PartResultService partResultService){
+    public void readStream(PartResultService partResultService) {
         PartResult partResult = null;
         Result result = null;
         List<PartResult> listOfResults = new ArrayList<>();
@@ -64,14 +73,15 @@ public class Connection extends Thread {
             if(OS.contains("Windows")) {
                 file = new File("..\\receivedFileServer.txt");
             }else{
-                file = new File("/../receivedFileServer.txt");
+                file = new File("../receivedFileServer.txt");
             }
 
-            receiveFile(file);
+            String dataset = receiveFile(file);
             System.out.println("File received "+file.length()+" bytes");
 
             BufferedReader br = new BufferedReader(new FileReader(file));
-            String data;
+            String data = null;
+
             while ((data = br.readLine()) != null){
                 data = data.replaceAll(",",".");
                 String[] params = data.split(";");
@@ -95,7 +105,7 @@ public class Connection extends Thread {
         } catch( EOFException e) {System.out.println(" EOF:"+ e.getMessage());
         } catch( NullPointerException e) {System.out.println("End of message");
         } catch( IOException e) {System.out.println(" IO:"+ e.getMessage());}
-        ConnectionHandler.getExperiment().setPartResult(listOfResults);
+        ConnectionHandler.setResults(listOfResults);
     }
 
     /**

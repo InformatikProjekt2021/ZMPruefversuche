@@ -1,8 +1,10 @@
 package com.zmp.communication;
 
 import com.zmp.model.Experiment;
+import com.zmp.model.PartResult;
 
 import java.net.Socket;
+import java.util.List;
 
 /**
  * class that holds all necessary data for successfully starting a new Experiment
@@ -12,11 +14,21 @@ public class ConnectionHandler {
 
     private static Connection connection;
 
+    private static List<PartResult> results;
+
     private static Experiment experiment;
 
     private static Socket clientSocket;
 
     private static int port = 8081;
+
+    public static List<PartResult> getResults() {
+        return results;
+    }
+
+    public static void setResults(List<PartResult> results) {
+        ConnectionHandler.results = results;
+    }
 
     public static Socket getClientSocket() {
         return clientSocket;

@@ -16,11 +16,11 @@ public class TCPClient {
             int i=0;
             try {
                 while (true) {
-                    double data = inputStream.readDouble();
+                    String data = inputStream.readUTF();
+                    System.out.println("Client received: " + data);
                     if(i == 3){
                         break;
                     }
-                    System.out.println("Client received: " + data);
                     i++;
                 }
             } catch (UnknownHostException e) {
@@ -49,13 +49,17 @@ public class TCPClient {
             Socket s = new Socket ("127.0.0.1", serverPort);
             DataOutputStream out = new DataOutputStream (s.getOutputStream());
             DataInputStream in = new DataInputStream (s.getInputStream());
-            File file = new File("C:\\Users\\Samer\\Desktop\\sentFileClient.txt");
+            String OS = System.getProperty("os.name");
+            File file;
+            if(OS.contains("Windows")) {
+                file = new File("C:\\Users\\Samer\\Desktop\\sentFileClient.txt");
+            }else{
+                file = new File("/../FileToSend.txt");
+            }
 
             read(in);
-
             System.out.println("writing..");
             client.sendFile(file,out);
-            //write(out);
             s.close();
         }catch (UnknownHostException e){
             System.out.println(" Sock:"+ e.getMessage());

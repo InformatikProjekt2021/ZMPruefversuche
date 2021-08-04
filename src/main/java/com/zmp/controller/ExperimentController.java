@@ -53,40 +53,62 @@ public class ExperimentController {
 
     @PostMapping
     public String newExperiment(@ModelAttribute("experiment") Experiment experiment){
+        Double[] data = new Double[4];
+        data[0] = experiment.getHeight();
+        data[1] = experiment.getTestSpeed();
+        data[2] = experiment.getyAxisForce();
+        data[3] = experiment.getWidth();
+        int counter =1;
+        //empty field handling
+        if(experiment.getName().equals("")){
+            return "redirect:/experiment?errorInputEmpty";
+        }
+        for(int i = 0; i<data.length;i++){
+            if(data[i] == null){
+                return "redirect:/experiment?errorInputEmpty";
+            }
+            if(data[i] == 0.0){
+                counter++;
+            }
+        }
+        //all values are 0 if counter == 5
+        if(counter == 5 ){
+            return "redirect:/experiment?errorInputEmpty";
+        }
+        // save input data
+        try {
+            Date date = new Date();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String currentPrincipalName = auth.getName();
+            User user = userRepository.findByEmail(currentPrincipalName);
+            experiment.setDate(date.toString());
+            experiment.setUserId(user);
+            experimentService.addExperiment(experiment);
+        }catch (Exception e){
+            return "redirect:/experiment?errorUnknown";
+        }
 
         if(ConnectionHandler.getClientSocket() != null){
-            ConnectionHandler.setExperiment(experiment);
-            Connection tcp = new Connection(ConnectionHandler.getClientSocket());
-            ConnectionHandler.setConnection(tcp);
-            //prepare experiment data to send
-            Double[] data = new Double[4];
-            data[0] = experiment.getHeight();
-            data[1] = experiment.getTestSpeed();
-            data[2] = experiment.getyAxisForce();
-            data[3] = experiment.getWidth();
-            //send data
-            tcp.writeStream(data);
+            try {
+                ConnectionHandler.setExperiment(experiment);
+                Connection tcp = new Connection(ConnectionHandler.getClientSocket());
+                ConnectionHandler.setConnection(tcp);
 
-            //read data
-            tcp.readStream(this.partResultService);
+                //send data
+                tcp.writeStream(data);
+                //read data
+                tcp.readStream(this.partResultService);
+                experimentService.updateExperiment(experiment.getId());
+                System.out.println(experimentService.findById(experiment.getId()).getPartResult().size()+" Datasets received for Experiment "+ experiment.getId());
 
-            //prepare and save newly created experiment
-            System.out.println("DataSets received:"+experiment.getPartResult().size()+" for experiment: "+experiment.getId());
-            if(experiment.getPartResult() != null && experiment.getPartResult().size() > 0) {
-                 Date date  = new Date();
-                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                 String currentPrincipalName = auth.getName();
-                 User user = userRepository.findByEmail(currentPrincipalName);
-                 experiment.setDate(date.toString());
-                 experiment.setUserId(user);
-                 experimentService.addExperiment(experiment);
-            }else {
-            System.out.println("client doesnt respond");
-                return "redirect:/experiment?error";
+            }catch (Exception e){
+                return "redirect:/experiment?errorTcp";
             }
         }else{
+            ConnectionHandler.setClientSocket(null);
             return "redirect:/experiment?error";
         }
+        ConnectionHandler.setClientSocket(null);
         return "redirect:/experiment?success";
     }
 

@@ -78,10 +78,23 @@
                         </div>
                         <div class="card-body">
                             <div th:if="${param.success}">
-                                <div class="alert alert-info">experiment erstellt!</div>
+                                <div class="alert alert-info">Experiment erstellt!</div>
                             </div>
                             <div th:if="${param.error}">
-                                <div class="alert alert-danger">experiment konnte nicht erstellt werden!</div>
+                                <div class="alert alert-danger">Eingabe wurde gespeichert!
+                                    Die Verbindung konnte nicht aufgebaut werden </div>
+                                 </div>
+                            <div th:if="${param.errorInputEmpty}">
+                                <div class="alert alert-danger">Ein Fehler bei der Eingabe ist aufgetreten!
+                                    Bitte füllen Sie alle Felder aus! </div>
+                            </div>
+                            <div th:if="${param.errorTcp}">
+                                <div class="alert alert-danger">Experiment wurde erstellt,
+                                    jedoch wurden keine Resultate empfangen</div>
+                            </div>
+                            <div th:if="${param.errorUnknown}">
+                                <div class="alert alert-danger">Experiment wurde nicht erstellt,
+                                    bei der Eingabe ist ein Fehler aufgetreten</div>
                             </div>
                             <form class="form-container" th:action="@{/experiment}" action = "#" method="post" th:object = "${experiment}" autocomplete="off">
                                 <div class="mb-3">

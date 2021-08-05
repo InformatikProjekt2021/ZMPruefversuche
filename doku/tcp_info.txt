@@ -1,0 +1,21 @@
+Der TCP Server, welcher de Facto in die Applikation integriert ist, wartet auf eine Verbindungsanfrage. Wenn
+dies geschieht, ist das das Signal für den Server, dass die Maschinen für ein neues Experiment bereitstehen. Wenn
+der Benutzer nun die Parameter (wichtig! Punktschreibweise: x.x) für das Experiment eingibt und den „Experiment
+starten“-Button betätigt, werden die eigegebenen Parameter über die TCP Verbindung an das RevPie (TCP Client)
+versendet. Nachdem das Experiment beendet wurde, sendet das RevPie (TCP Client) die Ergebnisdaten (in Form
+einer “.txt“ Datei, Inhalt: Semikolon separiert, ohne Kopfzeile) an den Applikationsserver. Die Applikation speichert
+nun die Resultate zum zugehörigen Experiment in der Datenbank. 
+
+Nachdem die Übertragung erfolgt ist,
+muss die Verbindung vom TCP Client beendet werden. Dies ist das Signal für den Applikationsserver, den Prozess
+für das momentane Experiment zu beenden. Es kann nun ein neues Experiment gestartet werden, indem man den
+Vorgang wiederholt.
+Diese Architektur kann in zukünftigen Gruppen nochmal überdacht werden, da auffällt, dass die Rollen Client und
+Server eigentlich vertauscht sein sollten. Aus Zeitmangel konnte dies nicht mehr überarbeitet werden.
+Im Projekt findet sich im Projektbaum, im Paket „communication“, die Implementierung des simulierten Prozesses. 
+Dieser ist in der, in Abbildung 51 dargestellten Version funktionsfähig. Zur Simulation muss der TCP Client
+vor der Ausführung gestartet werden. Liegt die Textdatei mit den Resultatdaten im selben verzeichnis wie das
+Projekt, kann das Experiment, über die Applikation ausgeführt werden, sodass eine erfolgreiche Datenübertragung
+stattfinden kann.
+Die vom Client gesendeten Daten werden in der Datenbank in der Tabelle „partResult“ abgespeichert. Zusätzlich
+werden die empfangenen Daten aus Testzwecken in eine Textdatei im Verzeichnis des Projekts geschrieben.

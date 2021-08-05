@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * class that acts as tcp server on port 8081
+ * sends input data from experiments and expects
+ * result data in the appropriate format
  */
 public class Connection extends Thread {
 
@@ -21,7 +23,7 @@ public class Connection extends Thread {
      * function to receive a text or csv file from a tcp client
      * @param file received file
      */
-    public String receiveFile(File file) throws IOException {
+    public void receiveFile(File file) throws IOException {
         FileOutputStream fileOut = new FileOutputStream(file);
         byte[] buf = new byte[Short.MAX_VALUE];
         int bytesSent;
@@ -32,11 +34,10 @@ public class Connection extends Thread {
                 fileOut.write(buf, 0, bytesSent);
             }
             fileOut.close();
-            dataset = new String(buf);
         } catch (EOFException e) {
             System.out.println(" EOF:" + e.getMessage());
         }
-        return dataset;
+
     }
 
     /**
@@ -76,7 +77,7 @@ public class Connection extends Thread {
                 file = new File("../receivedFileServer.txt");
             }
 
-            String dataset = receiveFile(file);
+            receiveFile(file);
             System.out.println("File received "+file.length()+" bytes");
 
             BufferedReader br = new BufferedReader(new FileReader(file));

@@ -6,30 +6,43 @@ import java.net.UnknownHostException;
 
 /**
  * simulates the tcp client that sends the experiment results as a file
+ * has to be started in order to get a successful Experiment data transmission
+ * requires testResultData.txt (filled with correct Test data) to be in the application directory
+ * for further Information take the TCP chapter of the documentation into consideration
  */
 public class TCPClient {
     private DataInputStream input;
 
     private DataOutputStream output;
 
-        private static void read (DataInputStream inputStream) throws IOException {
-            int i=0;
-            try {
-                while (true) {
-                    String data = inputStream.readUTF();
-                    System.out.println("Client received: " + data);
-                    if(i == 3){
+    /**
+     * function that reads the experiment input data sent by the server
+     * @param inputStream inputstream of tcp connection
+     *
+     */
+    private static void read (DataInputStream inputStream) throws IOException {
+        int i=0;
+        try {
+            while (true) {
+                String data = inputStream.readUTF();
+                System.out.println("Client received: " + data);
+                if(i == 3){
                         break;
-                    }
-                    i++;
                 }
-            } catch (UnknownHostException e) {
-                System.out.println(" Sock:" + e.getMessage());
-            } catch (EOFException e) {
-                System.out.println(" EOF:" + e.getMessage());
+                i++;
             }
+        } catch (UnknownHostException e) {
+            System.out.println(" Sock:" + e.getMessage());
+        } catch (EOFException e) {
+            System.out.println(" EOF:" + e.getMessage());
         }
+    }
 
+    /**
+     * function that sends the result file to the Application
+     * @param file file that contains the result test data (headerless semicolon separated) the server expects
+     * @param output output stream of the connection
+     */
     public void sendFile(File file,DataOutputStream output) throws IOException {
         FileInputStream fileIn = new FileInputStream(file);
         byte[] buf = new byte[Short.MAX_VALUE];
@@ -42,6 +55,9 @@ public class TCPClient {
         fileIn.close();
     }
 
+    /**
+     * simulation of communication
+     */
     public static void main (String[] args) {
             TCPClient client = new TCPClient();
         try{
@@ -52,13 +68,15 @@ public class TCPClient {
             String OS = System.getProperty("os.name");
             File file;
             if(OS.contains("Windows")) {
-                file = new File("C:\\Users\\Samer\\Desktop\\sentFileClient.txt");
+                // INSERT FILE LOCATION HERE
+                file = new File("..\\testResultData.txt");
             }else{
-                file = new File("/../FileToSend.txt");
+                file = new File("../testResultData.txt");
             }
-
+            //read data
             read(in);
             System.out.println("writing..");
+            //send result file
             client.sendFile(file,out);
             s.close();
         }catch (UnknownHostException e){

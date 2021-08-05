@@ -14,4 +14,8 @@
 #3. Build Fat JAR
     to build a java executable, go to the Gradle Tasks "build -> bootJar and execute the task
     the Jar executable will be placed in the folder /build/libs
+
+#4. TCP Communication
+    start server -> start Client -> start experiment
+
     
